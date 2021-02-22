@@ -24,8 +24,10 @@ use Illuminate\Support\Facades\Auth;
 //     return view('pages.about');
 // });
 
-Route::get('/', [PagesController::class, 'index']);
+Route::get('/home', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
+Route::get('/medicalHome', [PagesController::class, 'medicalHome']);
+Route::get('/companionHome', [PagesController::class, 'companionHome']);
 
 Auth::routes();
 
@@ -33,4 +35,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', Admin\UsersController::class, ['except' => ['show', 'create', 'store']]);
+});
+
+Route::prefix('profile')->name('profile.')->middleware('can:manage-profile')->group(function(){
+    Route::resource('/users', ProfilesController::class);
+});
+
+Route::prefix('user')->name('user.')->middleware('can:user-only')->group(function(){
+    Route::get('/', [PagesController::class, 'loginIndex']);
 });

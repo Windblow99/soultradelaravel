@@ -8,7 +8,7 @@
                     <div class="card-header">Edit User {{$user->name}}</div>
 
                     <div class="card-body">
-                        <form action="{{route('admin.users.update', $user) }}" method="POST">
+                        <form action="{{route('profile.users.update', $user) }}" method="POST">
                             <div class="form-group row">
                                 <label for="email" class="col-md-2 col-form-label text-md-right">Email Address</label>
     
@@ -37,27 +37,13 @@
                                 </div>
                             </div>
 
-                            @csrf
-                            {{method_field('PUT')}}
-                            <div class="form-group row">
-                                <label for="roles" class="col-md-2 col-form-label text-md-right">Roles</label>
-                                <div class="col-md-6">
-                                    @foreach($roles as $role)
-                                        <div class="form-check">
-                                            <input type="checkbox" name="roles[]" value="{{$role->id}}" @if($user->hasRole($role->name)) checked @endif>
-                                            <label>{{$role->name}}</label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-
                             <div class="form-group row">
                                 <label for="bio" class="col-md-2 col-form-label text-md-right">bio</label>
     
                                 <div class="col-md-6">
                                     <input id="bio" type="textarea" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{$user->bio}}" required autofocus>
     
-                                    @error('name')
+                                    @error('bio')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -65,20 +51,14 @@
                                 </div>
                             </div>
 
+                            @csrf
+                            {{method_field('PUT')}}
                             <div class="form-group row">
-                                <label for="approved" class="col-md-2 col-form-label text-md-right">Approved</label>
-    
+                                <label for="roles" class="col-md-2 col-form-label text-md-right">Roles</label>
                                 <div class="col-md-6">
-                                    <input id="approved" type="text" class="form-control @error('approved') is-invalid @enderror" name="approved" value="{{$user->approved}}" required autofocus>
-    
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    {{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}
                                 </div>
                             </div>
-
                             <button type="submit" class="btn btn-primary">
                                 Update
                             </button>

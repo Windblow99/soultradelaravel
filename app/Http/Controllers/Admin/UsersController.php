@@ -64,6 +64,8 @@ class UsersController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->bio = $request->bio;
+        $user->approved = $request->approved;
         
         if ($user->save()){
             $request->session()->flash('success', $user->name . ' has been updated');

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Role;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
@@ -13,72 +16,46 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $user_id = auth()->user('id');
+        $user = User::find($user_id);
+        return view ('profile.users.index')->with('users', $user);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Request $request, User $user)
+    {   
+        $roles = Role::all();
+        return view('profile.users.edit')->with([
+            'user' => $user,
+            'roles' => $roles
+
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
-    }
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->bio = $request->bio;
+        
+        if ($user->save()){
+            $request->session()->flash('success', $user->name . ' has been updated');
+        } else {
+            $request->session()->flash('error', 'There was an error updating the user');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('profile.users.index');
     }
 }

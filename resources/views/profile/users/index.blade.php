@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Users</div>
 
@@ -16,7 +16,6 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">Roles</th>
                                     <th scope="col">Bio</th>
-                                    <th scope="col">Approved</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>                           
@@ -28,17 +27,9 @@
                                     <td>{{$user->email}}</td>
                                     <td>{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{$user->bio}}</td>
-                                    <td>{{$user->approved}}</td>
                                     <td>
-                                        @can('edit-users')
-                                            <a href="{{route('admin.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>
-                                        @endcan
-                                        @can('delete-users')
-                                            <form action="{{route('admin.users.destroy', $user)}}" method="POST" class="float-left">
-                                                @csrf
-                                                {{method_field('DELETE')}}
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
+                                        @can('manage-profile')
+                                            <a href="{{route('profile.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>
                                         @endcan
                                     </td>
                                 </tr>

@@ -45,6 +45,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Role');
     }
 
+    public function users() {
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function hasAnyRoles($roles) {
         if ($this->roles()->whereIn('name', $roles)->first()) {
             return true;
@@ -55,6 +59,14 @@ class User extends Authenticatable
 
     public function hasRole($role) {
         if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        } 
+
+        return false;
+    }
+
+    public function isApproved($user) {
+        if ($this->users()->where('approved', $user)->first()) {
             return true;
         } 
 

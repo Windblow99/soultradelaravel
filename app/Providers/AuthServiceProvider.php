@@ -36,5 +36,17 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('delete-users', function($user){
             return $user->hasRole('admin');
         });
+
+        Gate::define('manage-profile', function($user){
+            return $user->hasAnyRoles(['user', 'medical']);
+        });
+
+        Gate::define('user-only', function($user){
+            return $user->hasRole('user');
+        });
+
+        Gate::define('approved-only', function($role){
+            return $role->isApproved('1');
+        });
     }
 }
