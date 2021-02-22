@@ -31,4 +31,6 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('profile', 'ProfilesController');
+Route::prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
+    Route::resource('/users', Admin\UsersController::class, ['except' => ['show', 'create', 'store']]);
+});

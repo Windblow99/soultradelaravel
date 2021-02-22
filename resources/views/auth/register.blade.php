@@ -61,6 +61,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="inputRole" class="col-md-4 col-form-label text-md-right">I am a...</label>
+
+                            <div class="col-md-6">
+                                <select class="custom-select" id="inputRole" name="inputRole">
+                                    <option selected>Choose...</option>
+                                    <option value="user">User</option>
+                                    <option value="medical">Medical Personnel</option>
+                                    <option value="external">External User</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
