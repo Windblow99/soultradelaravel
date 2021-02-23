@@ -72,4 +72,44 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function category() {
+        return $this->belongsToMany('App\Models\Category');
+    }
+
+    public function hasAnyCategories($categories) {
+        if ($this->category()->whereIn('name', $categories)->first()) {
+            return true;
+        } 
+
+        return false;
+    }
+
+    public function hasCategory($category) {
+        if ($this->category()->where('name', $category)->first()) {
+            return true;
+        } 
+
+        return false;
+    }
+
+    public function personality() {
+        return $this->belongsToMany('App\Models\Personality');
+    }
+
+    public function hasAnyPersonalities($personalities) {
+        if ($this->personality()->whereIn('name', $personalities)->first()) {
+            return true;
+        } 
+
+        return false;
+    }
+
+    public function hasPersonality($personality) {
+        if ($this->personality()->where('name', $personality)->first()) {
+            return true;
+        } 
+
+        return false;
+    }
 }

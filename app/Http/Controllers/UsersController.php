@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Role;
 use App\Models\Category;
 use App\Models\Personality;
 use Illuminate\Http\Request;
 
-class ProfilesController extends Controller
+class UsersController extends Controller
 {
      /**
      * Limiting page view to roles.
@@ -27,9 +26,37 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        $user_id = auth()->user('id');
-        $user = User::find($user_id);
-        return view ('profile.users.index')->with('users', $user);
+        $users = User::all();
+        return view ('user.users.index')->with('users', $users);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        $categories = Category::all();
+        $personalities = Personality::all();
+        
+        return view('profile.users.edit')->with([
+            'user' => $user,
+            'categories' => $categories,
+            'personalities' => $personalities
+        ]);
     }
 
     /**
@@ -38,17 +65,9 @@ class ProfilesController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, User $user)
-    {   
-        $categories = Category::all();
-        $personalities = Personality::all();
-        $roles = Role::all();
-        return view('profile.users.edit')->with([
-            'user' => $user,
-            'roles' => $roles,
-            'categories' => $categories,
-            'personalities' => $personalities,
-        ]);
+    public function edit(User $user)
+    {
+        //
     }
 
     /**
@@ -60,19 +79,17 @@ class ProfilesController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->category()->sync($request->categories);
-        $user->personality()->sync($request->personalities);
+        //
+    }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->bio = $request->bio;
-        
-        if ($user->save()){
-            $request->session()->flash('success', $user->name . ' has been updated');
-        } else {
-            $request->session()->flash('error', 'There was an error updating the user');
-        }
-
-        return redirect()->route('profile.users.index');
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        //
     }
 }

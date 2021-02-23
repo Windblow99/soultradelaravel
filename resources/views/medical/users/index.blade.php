@@ -16,8 +16,6 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">Roles</th>
                                     <th scope="col">Bio</th>
-                                    <th scope="col">Categories</th>
-                                    <th scope="col">Personalities</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>                           
@@ -29,8 +27,6 @@
                                     <td>{{$user->email}}</td>
                                     <td>{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{$user->bio}}</td>
-                                    <td>{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
-                                    <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
                                     <td>
                                         @can('manage-profile')
                                             <a href="{{route('profile.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>

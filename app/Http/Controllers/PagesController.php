@@ -19,6 +19,6 @@ class PagesController extends Controller
     }
 
     public function companionHome() {
-        return view('user.index');
+        return view('user.users.index');
     }
 }

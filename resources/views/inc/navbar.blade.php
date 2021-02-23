@@ -12,10 +12,10 @@
       <a class="nav-link" href="/about">About</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/medicalHome">Medical</a>
+      <a class="nav-link" href="{{ route('medical.users.index') }}">Medical</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/companionHome">Companionship</a>
+      <a class="nav-link" href="{{ route('user.users.index') }}">Companionship</a>
     </li>
     {{-- <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

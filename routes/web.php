@@ -24,10 +24,11 @@ use Illuminate\Support\Facades\Auth;
 //     return view('pages.about');
 // });
 
+Route::get('/', [PagesController::class, 'index']);
 Route::get('/home', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
-Route::get('/medicalHome', [PagesController::class, 'medicalHome']);
-Route::get('/companionHome', [PagesController::class, 'companionHome']);
+// Route::get('/medicalHome', [PagesController::class, 'medicalHome']);
+// Route::get('/companionHome', [PagesController::class, 'companionHome']);
 
 Auth::routes();
 
@@ -42,5 +43,9 @@ Route::prefix('profile')->name('profile.')->middleware('can:manage-profile')->gr
 });
 
 Route::prefix('user')->name('user.')->middleware('can:user-only')->group(function(){
-    Route::get('/', [PagesController::class, 'loginIndex']);
+    Route::resource('/users', UsersController::class);
+});
+
+Route::prefix('medical')->name('medical.')->middleware('can:medical-function')->group(function(){
+    Route::resource('/users', UsersController::class);
 });
