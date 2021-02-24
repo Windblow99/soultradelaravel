@@ -8,7 +8,7 @@
                     <div class="card-header">Edit User {{$user->name}}</div>
 
                     <div class="card-body">
-                        <form action="{{route('profile.users.update', $user) }}" method="POST">
+                        <form action="{{route('profile.users.update', $user) }}" method="POST" enctype="multipart/form-data">
                             <div class="form-group row">
                                 <label for="email" class="col-md-2 col-form-label text-md-right">Email Address</label>
     
@@ -85,6 +85,22 @@
                                             <label>{{$personality->name}}</label>
                                         </div>
                                     @endforeach
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="inputRole" class="col-md-4 col-form-label text-md-right">Profile Picture</label>
+    
+                                <div class="col-md-6">
+                                    <input id="profile_picture" type="file" class="form-control" name="profile_picture" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="verification_document" class="col-md-4 col-form-label text-md-right">Verification Document</label>
+    
+                                <div class="col-md-6">
+                                    <input id="verification_document" type="file" class="form-control" name="verification_document" required>
                                 </div>
                             </div>
 
