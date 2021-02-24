@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
+    // Creating new relationships
+    public function users() {
+        return $this->belongsToMany('App\Models\User');
+    }
 }

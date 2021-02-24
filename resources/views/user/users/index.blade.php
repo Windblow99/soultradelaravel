@@ -55,7 +55,8 @@
                                     <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
                                     <td>
                                         <a href="{{route('user.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
-                                        <a href="{{route('user.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Order</button></a>
+                                        <a href="{{route('order.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Order</button></a>
+                                        <a href="{{route('report.users.create', $user->id)}}"><button type="button" class="btn btn-danger float-left">Report</button></a>
                                     </td>
                                 </tr>
                             @endforeach

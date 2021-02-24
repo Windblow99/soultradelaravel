@@ -12,9 +12,27 @@ class MedicalsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, User $users)
     {
-        //
+        if ($request->term != NULL) {
+            $users = User::where([
+                ['name', '!=', Null],
+                [function ($query) use ($request) {
+                    if (($term = $request->term)) {
+                        $query->orWhere('name', 'LIKE', '%' . $term . '%')->get();
+                    }
+                }]
+            ])
+                ->orderBy('id')
+                ->paginate(10);
+        } else {
+            $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->where('role_user.role_id', 3)
+            ->get('users.*');
+        }
+
+        return view ('medical.users.index', compact('users'))
+            ->with('i', (request()->input('page', 1) -1 ) * 5);
     }
 
     /**

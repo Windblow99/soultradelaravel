@@ -54,10 +54,8 @@
                                     <td>{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
                                     <td>
-                                        @can('users-only')
-                                            <a href="{{route('user.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
-                                            <a href="{{route('user.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Order</button></a>
-                                        @endcan
+                                        <a href="{{route('user.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
+                                        <a href="{{route('user.users.update', $user->id)}}"><button type="button" class="btn btn-primary float-left">Order</button></a>
                                     </td>
                                 </tr>
                             @endforeach

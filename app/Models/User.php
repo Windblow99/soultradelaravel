@@ -124,4 +124,8 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function orders() {
+        return $this->belongsToMany('App\Models\Order');
+    }
 }

@@ -46,8 +46,50 @@
         </li>
       @endif
     @else
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('checkout.index')}}">Top Up</a>
+      <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+          Orders
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          {{-- @can('') --}}
+            <a class="dropdown-item" href="{{route('orders.sent')}}">
+              Created Orders
+            </a>
+          {{-- @endcan --}}
+          
+          {{-- @can('') --}}
+            <a class="dropdown-item" href="{{route('orders.received')}}">
+              Accepted Orders
+            </a>
+          {{-- @endcan --}}
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+          Wallet
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          {{-- @can('') --}}
+            <a class="dropdown-item" href="#">
+                Balance: RM{{ Auth::user()->balance }}
+            </a>
+          {{-- @endcan --}}
+          
+          {{-- @can('') --}}
+            <a class="dropdown-item" href="{{route('checkout.index')}}">
+                Top Up
+            </a>
+          {{-- @endcan --}}
+
+          {{-- @can('')
+            <a class="dropdown-item" href="{{route('checkout.index')}}">
+                Top Up
+            </a>
+          @endcan --}}
+        </div>
       </li>
 
       <li class="nav-item dropdown">

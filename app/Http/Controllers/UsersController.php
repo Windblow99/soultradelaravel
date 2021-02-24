@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Personality;
-use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -41,22 +42,12 @@ class UsersController extends Controller
         } else {
             $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
             ->where('role_user.role_id', 2)
+            ->where('users.id', '!=' , auth()->user()->id)
             ->get('users.*');
         }
 
         return view ('user.users.index', compact('users'))
             ->with('i', (request()->input('page', 1) -1 ) * 5);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -84,29 +75,6 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
     {
         //
     }
