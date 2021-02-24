@@ -27,8 +27,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/home', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
-// Route::get('/medicalHome', [PagesController::class, 'medicalHome']);
-// Route::get('/companionHome', [PagesController::class, 'companionHome']);
 
 Auth::routes();
 
@@ -47,5 +45,8 @@ Route::prefix('user')->name('user.')->middleware('can:user-only')->group(functio
 });
 
 Route::prefix('medical')->name('medical.')->middleware('can:medical-function')->group(function(){
-    Route::resource('/users', UsersController::class);
+    Route::resource('/users', MedicalsController::class);
 });
+
+Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.index');
+Route::post('/transaction', [CheckoutController::class, 'makePayment'])->name('make-payment');

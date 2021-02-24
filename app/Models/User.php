@@ -112,4 +112,16 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function medical() {
+        return $this->belongsTo('App\Models\Medical');
+    }
+
+    public function hasMedical($medical) {
+        if ($this->medical()->where('name', $medical)->first()) {
+            return true;
+        } 
+
+        return false;
+    }
 }

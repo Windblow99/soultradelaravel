@@ -14,11 +14,11 @@ class PagesController extends Controller
         return view('pages.about');
     }
 
-    public function medicalHome() {
-        return view('medical.index');
-    }
-
     public function companionHome() {
         return view('user.users.index');
+    }
+
+    public function checkout() {
+        return view ('checkout.index');
     }
 }

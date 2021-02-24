@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Personality;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -24,10 +25,27 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, User $users)
     {
-        $users = User::all();
-        return view ('user.users.index')->with('users', $users);
+        if ($request->term != NULL) {
+            $users = User::where([
+                ['name', '!=', Null],
+                [function ($query) use ($request) {
+                    if (($term = $request->term)) {
+                        $query->orWhere('name', 'LIKE', '%' . $term . '%')->get();
+                    }
+                }]
+            ])
+                ->orderBy('id')
+                ->paginate(10);
+        } else {
+            $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->where('role_user.role_id', 2)
+            ->get('users.*');
+        }
+
+        return view ('user.users.index', compact('users'))
+            ->with('i', (request()->input('page', 1) -1 ) * 5);
     }
 
     /**
