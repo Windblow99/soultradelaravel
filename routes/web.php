@@ -56,7 +56,12 @@ Route::prefix('report')->name('report.')->middleware('can:medical-function')->gr
     Route::resource('/users', ReportsController::class);
 });
 
-Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.index');
+Route::prefix('withdrawal')->name('withdrawal.')->middleware('can:medical-function')->group(function(){
+    Route::resource('/users', WithdrawalsController::class);
+});
+
 Route::get('/sentorders', [OrdersController::class, 'showSentOrders'])->name('orders.sent');
 Route::get('/receivedorders', [OrdersController::class, 'showReceivedOrders'])->name('orders.received');
+
+Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.index');
 Route::post('/transaction', [CheckoutController::class, 'makePayment'])->name('make-payment');

@@ -120,4 +120,8 @@ class User extends Authenticatable
     public function reports() {
         return $this->belongsTo('App\Models\Report');
     }
+
+    public function withdrawals() {
+        return $this->belongsTo('App\Models\Withdrawal');
+    }
 }

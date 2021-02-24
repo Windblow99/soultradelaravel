@@ -74,21 +74,21 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           {{-- @can('') --}}
             <a class="dropdown-item" href="#">
-                Balance: RM{{ Auth::user()->balance }}
+              Balance: RM{{ Auth::user()->balance }}
             </a>
           {{-- @endcan --}}
           
           {{-- @can('') --}}
             <a class="dropdown-item" href="{{route('checkout.index')}}">
-                Top Up
+              Top Up
             </a>
           {{-- @endcan --}}
 
-          {{-- @can('')
-            <a class="dropdown-item" href="{{route('checkout.index')}}">
-                Top Up
+          {{-- @can('') --}}
+            <a class="dropdown-item" href="{{route('withdrawal.users.index')}}">
+              Withdrawal
             </a>
-          @endcan --}}
+          {{-- @endcan --}}
         </div>
       </li>
 

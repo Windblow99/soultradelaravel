@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Withdrawal;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class WithdrawalsController extends Controller
@@ -14,7 +16,7 @@ class WithdrawalsController extends Controller
      */
     public function index()
     {
-        //
+        return view ('withdrawal.users.index');
     }
 
     /**
@@ -35,7 +37,26 @@ class WithdrawalsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $withdrawal = new Withdrawal;
+        $withdrawal->user_id = auth()->user()->id;
+        $withdrawal->user_name = auth()->user()->name;
+        $withdrawal->bank_name = $request->bank_name;
+        $withdrawal->bank_account = $request->bank_account;
+        $withdrawal->amount = $request->amount;
+        $withdrawal->save();
+
+        DB::update(
+            'update users set balance = balance - ? WHERE users.id = ?',
+            [$request->amount, auth()->user()->id]
+        );
+        
+        if ($withdrawal->save()){
+            $request->session()->flash('success', 'Withdrawal has been created');
+        } else {
+            $request->session()->flash('error', 'There was an error updating the user');
+        }
+
+        return redirect()->route('user.users.index');
     }
 
     /**
@@ -57,7 +78,7 @@ class WithdrawalsController extends Controller
      */
     public function edit(User $user)
     {
-        //
+
     }
 
     /**
