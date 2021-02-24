@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Report;
 use Illuminate\Http\Request;
 
-class ReportsController extends Controller
+class WithdrawalsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,19 +35,7 @@ class ReportsController extends Controller
      */
     public function store(Request $request)
     {
-        $report = new Report;
-        $report->description = $request->description;
-        $report->user_id = $request->id;
-        $report->user_name = $request->name;
-        $report->save();
-        
-        if ($report->save()){
-            $request->session()->flash('success', 'Report has been created');
-        } else {
-            $request->session()->flash('error', 'There was an error updating the user');
-        }
-
-        return redirect()->route('user.users.index');
+        //
     }
 
     /**
@@ -70,8 +57,29 @@ class ReportsController extends Controller
      */
     public function edit(User $user)
     {
-        return view('report.users.edit')->with([
-            'user' => $user,
-        ]);
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        //
     }
 }

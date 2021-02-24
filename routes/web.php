@@ -52,8 +52,11 @@ Route::prefix('order')->name('order.')->middleware('can:medical-function')->grou
     Route::resource('/users', OrdersController::class);
 });
 
+Route::prefix('report')->name('report.')->middleware('can:medical-function')->group(function(){
+    Route::resource('/users', ReportsController::class);
+});
+
 Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.index');
 Route::get('/sentorders', [OrdersController::class, 'showSentOrders'])->name('orders.sent');
 Route::get('/receivedorders', [OrdersController::class, 'showReceivedOrders'])->name('orders.received');
 Route::post('/transaction', [CheckoutController::class, 'makePayment'])->name('make-payment');
-Route::post('/updateCancel', [OrdersController::class, 'updateCancel'])->name('update-cancel');
