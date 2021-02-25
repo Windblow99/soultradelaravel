@@ -14,7 +14,7 @@
                                 <label for="id" class="col-md-2 col-form-label text-md-right">id</label>
     
                                 <div class="col-md-6">
-                                    <input id="id" type="text" class="form-control @error('id') is-invalid @enderror" name="id" value="{{$user->id}}" required autofocus>
+                                    <input id="id" type="text" class="form-control @error('id') is-invalid @enderror" name="id" value="{{$user->id}}" required readonly>
     
                                     @error('id')
                                         <span class="invalid-feedback" role="alert">
@@ -28,7 +28,7 @@
                                 <label for="name" class="col-md-2 col-form-label text-md-right">Name</label>
     
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$user->name}}" required autofocus>
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$user->name}}" required readonly>
     
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
                                 <label for="price" class="col-md-2 col-form-label text-md-right">price</label>
     
                                 <div class="col-md-6">
-                                    <input id="price" type="textarea" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required autofocus>
+                                    <input id="price" type="textarea" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required readonly>
     
                                     @error('price')
                                         <span class="invalid-feedback" role="alert">
@@ -53,7 +53,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary">
-                                Update
+                                Order
                             </button>
                         </form>
                     </div>

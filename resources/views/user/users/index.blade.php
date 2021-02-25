@@ -26,6 +26,7 @@
                                     <th scope="col">Bio</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Personality</th>
+                                    <th scope="col">Profile Picture</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>                           
@@ -38,6 +39,7 @@
                                     <td>{{$user->bio}}</td>
                                     <td>{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
+                                    <td><img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}"></td>
                                     <td>
                                         <a href="{{route('user.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
                                         <a href="{{route('order.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Order</button></a>

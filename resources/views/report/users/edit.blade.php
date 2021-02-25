@@ -14,13 +14,7 @@
                                 <label for="id" class="col-md-2 col-form-label text-md-right">id</label>
     
                                 <div class="col-md-6">
-                                    <input id="id" type="text" class="form-control @error('id') is-invalid @enderror" name="id" value="{{$user->id}}" required autofocus>
-    
-                                    @error('id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <input id="id" type="text" class="form-control @error('id') is-invalid @enderror" name="id" value="{{$user->id}}" required readonly>
                                 </div>
                             </div>
 
@@ -28,13 +22,7 @@
                                 <label for="name" class="col-md-2 col-form-label text-md-right">Name</label>
     
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$user->name}}" required autofocus>
-    
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$user->name}}" required readonly>
                                 </div>
                             </div>
 

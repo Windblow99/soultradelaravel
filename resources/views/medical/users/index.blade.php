@@ -11,16 +11,16 @@
                                 <i class="fas fa-search"></i>
             
                                 <div class="input-group">
+                                    <input type="text" class="form-control mr-2" name="term" placeholder="Search user" id="term">
                                     <span class="input-group-btn mr-5 mt-1">
                                         <button class="btn btn-info" type="submit" title="Search user">
-                                            <span class="fas fa-search"><i class="fas fa-search"></i></span>
+                                            Search
                                         </button>
                                     </span>
-                                    <input type="text" class="form-control mr-2" name="term" placeholder="Search user" id="term">
                                     <a href="{{ route('user.users.index') }}" class=" mt-1">
                                         <span class="input-group-btn">
                                             <button class="btn btn-danger" type="button" title="Refresh page">
-                                                <i class="fas fa-search"></i>
+                                                Refresh
                                             </button>
                                         </span>
                                     </a>
@@ -40,8 +40,8 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Bio</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">Personality</th>
+                                    <th scope="col">Picture</th>
+                                    <th scope="col">Price</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>                           
@@ -52,11 +52,12 @@
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->bio}}</td>
-                                    <td>{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
-                                    <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
+                                    <td><img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}"></td>
+                                    <td>{{$user->price}}</td>
                                     <td>
-                                        <a href="{{route('user.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
-                                        <a href="{{route('user.users.update', $user->id)}}"><button type="button" class="btn btn-primary float-left">Order</button></a>
+                                        <a href="{{route('medical.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
+                                        <a href="{{route('order.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Order</button></a>
+                                        <a href="{{route('report.users.edit', $user->id)}}"><button type="button" class="btn btn-danger float-left">Report</button></a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -37,37 +37,42 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        $order = new Order;
-        $order->pricing = $request->price;
-        $order->type = 'User';
-        $order->seller_id = $request->id;
-        $order->seller_name = $request->name;
-        $order->buyer_id = auth()->user()->id;
-        $order->buyer_name = auth()->user()->name;
-        $order->save();
-
-        DB::update(
-            'update users set balance = balance - ? WHERE users.id = ?',
-            [$request->price, auth()->user()->id]
-        );
-
-        DB::update(
-            'update users set balance = balance + (? * 0.8) WHERE users.id = ?',
-            [$request->price, $request->id]
-        );
-
-        DB::update(
-            'update users set balance = balance + (? * 0.2) WHERE users.id = ?',
-            [$request->price, 1]
-        );
-        
-        if ($order->save()){
-            $request->session()->flash('success', 'Order has been created');
+        if(auth()->user()->balance < $request->price) {
+            $request->session()->flash('error', 'Please check your balance');
+            return redirect()->route('user.users.index');
         } else {
-            $request->session()->flash('error', 'There was an error updating the user');
-        }
+            $order = new Order;
+            $order->pricing = $request->price;
+            $order->type = 'User';
+            $order->seller_id = $request->id;
+            $order->seller_name = $request->name;
+            $order->buyer_id = auth()->user()->id;
+            $order->buyer_name = auth()->user()->name;
+            $order->save();
 
-        return redirect()->route('user.users.index');
+            DB::update(
+                'update users set balance = balance - ? WHERE users.id = ?',
+                [$request->price, auth()->user()->id]
+            );
+
+            DB::update(
+                'update users set balance = balance + (? * 0.8) WHERE users.id = ?',
+                [$request->price, $request->id]
+            );
+
+            DB::update(
+                'update users set balance = balance + (? * 0.2) WHERE users.id = ?',
+                [$request->price, 1]
+            );
+            
+            if ($order->save()){
+                $request->session()->flash('success', 'Order has been created');
+            } else {
+                $request->session()->flash('error', 'There was an error updating the user');
+            }
+
+            return redirect()->route('user.users.index');
+        }
     }
 
     /**

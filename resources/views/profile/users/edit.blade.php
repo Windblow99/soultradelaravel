@@ -89,7 +89,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="inputRole" class="col-md-4 col-form-label text-md-right">Profile Picture</label>
+                                <label for="inputRole" class="col-md-2 col-form-label text-md-right">Profile Picture</label>
     
                                 <div class="col-md-6">
                                     <input id="profile_picture" type="file" class="form-control" name="profile_picture">
@@ -98,7 +98,7 @@
                             
                             @can(['not-approved'])
                             <div class="form-group row">
-                                <label for="verification_document" class="col-md-4 col-form-label text-md-right">Verification Document</label>
+                                <label for="verification_document" class="col-md-2 col-form-label text-md-right">Verification Document</label>
     
                                 <div class="col-md-6">
                                     <input id="verification_document" type="file" class="form-control" name="verification_document">
@@ -107,7 +107,7 @@
                             @endcan
 
                             <div class="form-group row">
-                                <label for="availability" class="col-md-4 col-form-label text-md-right">Availability</label>
+                                <label for="availability" class="col-md-2 col-form-label text-md-right">Availability</label>
     
                                 <div class="col-md-6">
                                     <select class="custom-select" id="availability" name="availability">

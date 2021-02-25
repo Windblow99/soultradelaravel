@@ -9,30 +9,10 @@
 
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="email" class="col-md-2 col-form-label text-md-right">Email Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$user->email}}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label text-md-right">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$user->name}}" required autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$user->name}}" required readonly>
                             </div>
                         </div>
 
@@ -40,33 +20,25 @@
                             <label for="bio" class="col-md-2 col-form-label text-md-right">bio</label>
 
                             <div class="col-md-6">
-                                <input id="bio" type="textarea" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{$user->bio}}" required autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="bio" type="textarea" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{$user->bio}}" required readonly>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="approved" class="col-md-2 col-form-label text-md-right">Approved</label>
+                            <label for="price" class="col-md-2 col-form-label text-md-right">price</label>
 
                             <div class="col-md-6">
-                                <input id="approved" type="text" class="form-control @error('approved') is-invalid @enderror" name="approved" value="{{$user->approved}}" required autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="price" type="textarea" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required readonly>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">
-                            Update
-                        </button>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right">Profile Picture</label>
+
+                            <div class="col-md-6">
+                                <img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
