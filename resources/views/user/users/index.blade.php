@@ -10,19 +10,13 @@
                             <form action="{{ route('user.users.index') }}" method="GET" role="search">
             
                                 <div class="input-group">
+                                    <input type="text" class="form-control mr-2" name="term" placeholder="Search user" id="term" onkeyup="myFunction()">
+
                                     <span class="input-group-btn mr-5 mt-1">
                                         <button class="btn btn-info" type="submit" title="Search user">
                                             <span class="fas fa-search"></span>
                                         </button>
                                     </span>
-                                    <input type="text" class="form-control mr-2" name="term" placeholder="Search user" id="term">
-                                    <a href="{{ route('user.users.index') }}" class=" mt-1">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-danger" type="button" title="Refresh page">
-                                                <span class="fas fa-sync-alt"></span>
-                                            </button>
-                                        </span>
-                                    </a>
                                 </div>
                             </form>
                         </div>
@@ -32,7 +26,7 @@
                     <div class="card-header">Users</div>
 
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
@@ -46,7 +40,7 @@
                             </thead>                           
                             <tbody>
                             @foreach($users as $user)
-                                <tr>
+                                <tr id="myUL">
                                     <th scope="row">{{$user->id}}</th>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
@@ -68,3 +62,41 @@
         </div>
     </div>
 @endsection
+
+
+<script>
+function myFunction() {
+
+  // Declare variables 
+  var input = document.getElementById("term");
+  var filter = input.value.toUpperCase();
+  var table = document.getElementById("table");
+  var trs = table.tBodies[0].getElementsByTagName("tr");
+
+  // Loop through first tbody's rows
+  for (var i = 0; i < trs.length; i++) {
+
+    // define the row's cells
+    var tds = trs[i].getElementsByTagName("td");
+
+    // hide the row
+    trs[i].style.display = "none";
+
+    // loop through row cells
+    for (var i2 = 0; i2 < tds.length; i2++) {
+
+      // if there's a match
+      if (tds[i2].innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+        // show the row
+        trs[i].style.display = "";
+
+        // skip to the next row
+        continue;
+
+      }
+    }
+  }
+
+}
+</script>

@@ -67,3 +67,6 @@ Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.in
 Route::post('/transaction', [CheckoutController::class, 'makePayment'])->name('make-payment');
 
 Route::get('/admin/pdf', [Admin\UsersController::class, 'createPDF']);
+
+Route::get('change-password', [ChangePasswordController::class, 'Index'])->name('changepwd.index');
+Route::post('change-password', [ChangePasswordController::class, 'Store'])->name('change.password');

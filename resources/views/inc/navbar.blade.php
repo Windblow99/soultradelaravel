@@ -110,6 +110,12 @@
             </a>
           @endcan
 
+          @can('manage-profile')
+            <a class="dropdown-item" href="{{ route('changepwd.index') }}">
+                Change Password
+            </a>
+          @endcan
+
           <a class="dropdown-item" href="{{ route('logout') }}"
               onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
