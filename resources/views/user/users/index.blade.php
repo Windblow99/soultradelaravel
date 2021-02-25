@@ -6,19 +6,10 @@
             <div class="">
                 <div>
                     <div class="mx-auto pull-right">
-                        <div class="">
-                            <form action="{{ route('user.users.index') }}" method="GET" role="search">
-            
-                                <div class="input-group">
-                                    <input type="text" class="form-control mr-2" name="term" placeholder="Search user" id="term" onkeyup="myFunction()">
-
-                                    <span class="input-group-btn mr-5 mt-1">
-                                        <button class="btn btn-info" type="submit" title="Search user">
-                                            <span class="fas fa-search"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </form>
+                        <div class="">        
+                            <div class="input-group">
+                                <input type="text" class="form-control mr-2" name="term" placeholder="Search anything..." id="term" onkeyup="myFunction()">
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -11,23 +11,14 @@
     <li class="nav-item">
       <a class="nav-link" href="/about">About</a>
     </li>
+    @can(['approved-only'])
     <li class="nav-item">
       <a class="nav-link" href="{{ route('medical.users.index') }}">Medical</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{{ route('user.users.index') }}">Companionship</a>
     </li>
-    {{-- <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/medicalHome">Action</a>
-        <a class="dropdown-item" href="/playHome">Another action</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-    </li> --}}
+    @endcan
   </ul>
 
   <!-- Right Side Of Navbar -->
@@ -46,25 +37,23 @@
         </li>
       @endif
     @else
+      @can(['approved-only', 'medical-user'])
       <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
           Orders
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          {{-- @can('') --}}
-            <a class="dropdown-item" href="{{route('orders.sent')}}">
-              Created Orders
-            </a>
-          {{-- @endcan --}}
-          
-          {{-- @can('') --}}
-            <a class="dropdown-item" href="{{route('orders.received')}}">
-              Accepted Orders
-            </a>
-          {{-- @endcan --}}
+          <a class="dropdown-item" href="{{route('orders.sent')}}">
+            Created Orders
+          </a>          
+        
+          <a class="dropdown-item" href="{{route('orders.received')}}">
+            Accepted Orders
+          </a>
         </div>
       </li>
+      @endcan
 
       <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -72,23 +61,21 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          {{-- @can('') --}}
-            <a class="dropdown-item" href="#">
-              Balance: RM{{ Auth::user()->balance }}
-            </a>
-          {{-- @endcan --}}
+          <a class="dropdown-item" href="#">
+            Balance: RM{{ Auth::user()->balance }}
+          </a>
           
-          {{-- @can('') --}}
+          @can(['approved-only', 'user-only'])
             <a class="dropdown-item" href="{{route('checkout.index')}}">
               Top Up
             </a>
-          {{-- @endcan --}}
+          @endcan
 
-          {{-- @can('') --}}
+          @can(['approved-only', 'medical-user'])
             <a class="dropdown-item" href="{{route('withdrawal.users.index')}}">
               Withdrawal
             </a>
-          {{-- @endcan --}}
+          @endcan
         </div>
       </li>
 
@@ -98,7 +85,7 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          @can('manage-users')
+          @can(['manage-users', 'approved-only'])
             <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                 User Management
             </a>

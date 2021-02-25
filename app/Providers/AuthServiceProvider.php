@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -38,19 +39,27 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('manage-profile', function($user){
-            return $user->hasAnyRoles(['user', 'medical']);
+            return $user->hasAnyRoles(['user', 'medical', 'external']);
         });
 
         Gate::define('user-only', function($user){
             return $user->hasRole('user');
         });
 
-        Gate::define('approved-only', function($role){
-            return $role->isApproved('0');
+        Gate::define('approved-only', function($user){
+            return $user->isApproved();
         });
 
         Gate::define('medical-function', function($user){
             return $user->hasAnyRoles(['user', 'medical']);
+        });
+
+        Gate::define('medical-user', function($user){
+            return $user->hasAnyRoles(['user', 'medical']);
+        });
+
+        Gate::define('not-approved', function($user){
+            return $user->isNotApproved();
         });
     }
 }

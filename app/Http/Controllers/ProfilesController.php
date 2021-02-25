@@ -29,7 +29,7 @@ class ProfilesController extends Controller
     {
         $user_id = auth()->user('id');
         $user = User::find($user_id);
-        return view ('profile.users.index')->with('users', $user);
+        return View ('profile.users.index')->with('users', $user);
     }
 
     /**
@@ -61,8 +61,8 @@ class ProfilesController extends Controller
     public function update(Request $request, User $user)
     {
         $this->validate($request, [
-            'profile_picture' => 'image|required|max:1999',
-            'verification_document' => 'image|required|max:1999'
+            'profile_picture' => 'image|null|max:1999',
+            'verification_document' => 'image|null|max:1999'
         ]);
 
         // Handle File Upload
@@ -107,8 +107,15 @@ class ProfilesController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->bio = $request->bio;
-        $user->profile_picture = $fileNameToStore;
-        $user->verification_file = $fileNameToStore2;
+        $user->availability = $request->availability;
+
+        if ($request->hasFile('profile_picture')) {
+            $user->profile_picture = $fileNameToStore;
+        }
+
+        if ($request->hasFile('verification_document')) {
+            $user->verification_file = $fileNameToStore2;
+        }
         
         if ($user->save()){
             $request->session()->flash('success', $user->name . ' has been updated');

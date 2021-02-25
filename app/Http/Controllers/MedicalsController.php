@@ -19,7 +19,7 @@ class MedicalsController extends Controller
                 ['name', '!=', Null],
                 [function ($query) use ($request) {
                     if (($term = $request->term)) {
-                        $query->orWhere('name', 'LIKE', '%' . $term . '%')->get();
+                        $query->where('name', 'LIKE', '%' . $term . '%')->get();
                     }
                 }]
             ])
@@ -28,6 +28,8 @@ class MedicalsController extends Controller
         } else {
             $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
             ->where('role_user.role_id', 3)
+            ->where('users.availability', '=' , 'YES')
+            ->where('users.approved', '=' , 'YES')
             ->get('users.*');
         }
 
@@ -64,7 +66,9 @@ class MedicalsController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('medical.users.show')->with([
+            'user' => $user,
+        ]);
     }
 
     /**

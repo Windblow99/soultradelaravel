@@ -19,6 +19,7 @@
                                     <th scope="col">Categories</th>
                                     <th scope="col">Personalities</th>
                                     <th scope="col">Profile Picture</th>
+                                    <th scope="col">Availability</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>                           
@@ -33,6 +34,7 @@
                                     <td>{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
                                     <td><img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}"></td>
+                                    <td>{{$user->availability}}</td>
                                     <td>
                                         @can('manage-profile')
                                             <a href="{{route('profile.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>

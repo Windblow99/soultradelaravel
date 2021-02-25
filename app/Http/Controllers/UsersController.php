@@ -27,27 +27,15 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, User $users)
-    {
-        if ($request->term != NULL) {
-            $users = User::where([
-                ['name', '!=', Null],
-                [function ($query) use ($request) {
-                    if (($term = $request->term)) {
-                        $query->orWhere('name', 'LIKE', '%' . $term . '%')->get();
-                    }
-                }]
-            ])
-                ->orderBy('id')
-                ->paginate(10);
-        } else {
-            $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
-            ->where('role_user.role_id', 2)
-            ->where('users.id', '!=' , auth()->user()->id)
-            ->get('users.*');
-        }
+    {   
+        $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
+        ->where('role_user.role_id', 2)
+        ->where('users.id', '!=' , auth()->user()->id)
+        ->where('users.availability', '=' , 'YES')
+        ->where('users.approved', '=' , 'YES')
+        ->get('users.*');
 
-        return view ('user.users.index', compact('users'))
-            ->with('i', (request()->input('page', 1) -1 ) * 5);
+        return view ('user.users.index')->with('users', $users);
     }
 
     /**
@@ -61,7 +49,7 @@ class UsersController extends Controller
         $categories = Category::all();
         $personalities = Personality::all();
         
-        return view('profile.users.edit')->with([
+        return view('user.users.show')->with([
             'user' => $user,
             'categories' => $categories,
             'personalities' => $personalities

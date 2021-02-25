@@ -65,8 +65,16 @@ class User extends Authenticatable
         return false;
     }
 
-    public function isApproved($user) {
-        if ($this->users()->where('approved', $user)->first()) {
+    public function isApproved() {
+        if ($this->users()->where('approved', 'YES')) {
+            return true;
+        } 
+
+        return false;
+    }
+
+    public function isNotApproved() {
+        if ($this->users()->where('approved', 'NO')) {
             return true;
         } 
 
