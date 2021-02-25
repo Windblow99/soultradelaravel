@@ -11,13 +11,15 @@
     <li class="nav-item">
       <a class="nav-link" href="/about">About</a>
     </li>
-    @can('approved-only')
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('medical.users.index') }}">Medical</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('user.users.index') }}">Companionship</a>
-    </li>
+    @can('medical-user')
+    @if(Auth::user()->approved == "YES")
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('medical.users.index') }}">Medical</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('user.users.index') }}">Companionship</a>
+      </li>   
+    @endif
     @endcan
   </ul>
 
@@ -37,24 +39,26 @@
         </li>
       @endif
     @else
-      @can(['approved-only', 'medical-user'])
-      <li class="nav-item dropdown">
-        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-          Orders
-        </a>
-
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{route('orders.sent')}}">
-            Created Orders
-          </a>          
-        
-          <a class="dropdown-item" href="{{route('orders.received')}}">
-            Accepted Orders
+      @can('medical-user')
+      @if(Auth::user()->approved == "YES")
+        <li class="nav-item dropdown">
+          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            Orders
           </a>
-        </div>
-      </li>
-      @endcan
 
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{route('orders.sent')}}">
+              Created Orders
+            </a>          
+          
+            <a class="dropdown-item" href="{{route('orders.received')}}">
+              Accepted Orders
+            </a>
+          </div>
+        </li>
+      @endif
+      @endcan
+      
       <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
           Wallet
@@ -65,16 +69,20 @@
             Balance: RM{{ Auth::user()->balance }}
           </a>
           
-          @can(['approved-only', 'user-only'])
+          @can('user-only')
+          @if(Auth::user()->approved == "YES")
             <a class="dropdown-item" href="{{route('checkout.index')}}">
               Top Up
             </a>
+          @endif
           @endcan
 
-          @can(['approved-only', 'medical-user'])
+          @can('medical-user')
+          @if(Auth::user()->approved == "YES")
             <a class="dropdown-item" href="{{route('withdrawal.users.index')}}">
               Withdrawal
             </a>
+          @endif
           @endcan
         </div>
       </li>
@@ -85,13 +93,15 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          @can(['approved-only', 'manage-users'])
+          @can('manage-users')
+          @if(Auth::user()->approved == "YES")
             <a class="dropdown-item" href="{{ route('admin.users.index') }}">
               User Management
             </a>
             <a class="dropdown-item" href="{{ route('orders.all') }}">
               Order Management
             </a>
+          @endif
           @endcan
 
           @can('admin-only')

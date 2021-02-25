@@ -120,8 +120,8 @@
     
                                 <div class="col-md-6">
                                     <select class="custom-select" id="approved" name="approved">
-                                        <option value="NO" @if($user->isNotApproved()) selected @endif>NO</option>
-                                        <option value="YES" @if($user->isApproved()) selected @endif>YES</option>
+                                        <option value="NO" @if($user->approved == 'NO') selected @endif>NO</option>
+                                        <option value="YES" @if($user->approved == 'YES') selected @endif>YES</option>
                                     </select>
                                 </div>
                             </div>

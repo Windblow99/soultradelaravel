@@ -48,10 +48,10 @@ class LoginController extends Controller
             $this->redirectTo = route('profile.users.index');
             return $this->redirectTo;
         } else if(Auth::user()->hasRole('medical')) {
-            $this->redirectTo = route('admin.users.index');
+            $this->redirectTo = route('profile.users.index');
             return $this->redirectTo;
         } else if(Auth::user()->hasRole('external')) {
-            $this->redirectTo = route('admin.users.index');
+            $this->redirectTo = route('profile.users.index');
             return $this->redirectTo;
         }
 
