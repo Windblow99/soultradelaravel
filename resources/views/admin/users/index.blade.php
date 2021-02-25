@@ -8,6 +8,10 @@
                     <div class="card-header">Users</div>
 
                     <div class="card-body">
+                        <div class="d-flex justify-content-end mb-4">
+                            <a class="btn btn-primary" href="{{ URL::to('/admin/pdf') }}">Export to PDF</a>
+                        </div>
+                
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>

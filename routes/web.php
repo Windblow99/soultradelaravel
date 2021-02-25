@@ -65,3 +65,5 @@ Route::get('/receivedorders', [OrdersController::class, 'showReceivedOrders'])->
 
 Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.index');
 Route::post('/transaction', [CheckoutController::class, 'makePayment'])->name('make-payment');
+
+Route::get('/admin/pdf', [Admin\UsersController::class, 'createPDF']);

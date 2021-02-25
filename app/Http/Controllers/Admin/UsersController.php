@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
+use PDF;
+
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
@@ -18,6 +20,19 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    // Generate PDF
+    public function createPDF() {
+        // retreive all records from db
+        $data = User::all();
+  
+        // share data to view
+        view()->share('users',$data);
+        $pdf = PDF::loadView('adminPDF', $data);
+  
+        // download PDF file with download method
+        return $pdf->download('pdf_file.pdf');
     }
 
     /**

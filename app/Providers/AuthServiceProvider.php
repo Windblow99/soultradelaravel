@@ -46,7 +46,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('approved-only', function($role){
-            return $role->isApproved('1');
+            return $role->isApproved('0');
         });
 
         Gate::define('medical-function', function($user){
