@@ -11,7 +11,7 @@
     <li class="nav-item">
       <a class="nav-link" href="/about">About</a>
     </li>
-    @can(['approved-only'])
+    @can('approved-only')
     <li class="nav-item">
       <a class="nav-link" href="{{ route('medical.users.index') }}">Medical</a>
     </li>
@@ -85,9 +85,18 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          @can(['manage-users', 'approved-only'])
+          @can(['approved-only', 'manage-users'])
             <a class="dropdown-item" href="{{ route('admin.users.index') }}">
-                User Management
+              User Management
+            </a>
+            <a class="dropdown-item" href="{{ route('orders.all') }}">
+              Order Management
+            </a>
+          @endcan
+
+          @can('admin-only')
+            <a class="dropdown-item" href="{{ route('withdrawals.all') }}">
+              Financials
             </a>
           @endcan
           

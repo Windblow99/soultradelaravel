@@ -37,6 +37,20 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="price" class="col-md-2 col-form-label text-md-right">price</label>
+    
+                                <div class="col-md-6">
+                                    <input id="price" type="textarea" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required autofocus>
+    
+                                    @error('price')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             @csrf
                             {{method_field('PUT')}}
                             <div class="form-group row">
@@ -48,6 +62,42 @@
                                             <label>{{$role->name}}</label>
                                         </div>
                                     @endforeach
+                                </div>
+                            </div>
+
+                            @csrf
+                            {{method_field('PUT')}}
+                            <div class="form-group row">
+                                <label for="categories" class="col-md-2 col-form-label text-md-right">Categories</label>
+                                <div class="col-md-6">
+                                    @foreach($categories as $category)
+                                        <div class="form-check">
+                                            <input type="checkbox" name="categories[]" value="{{$category->id}}" @if($user->hasCategory($category->name)) checked @endif>
+                                            <label>{{$category->name}}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            @csrf
+                            {{method_field('PUT')}}
+                            <div class="form-group row">
+                                <label for="personalities" class="col-md-2 col-form-label text-md-right">Personalities</label>
+                                <div class="col-md-6">
+                                    @foreach($personalities as $personality)
+                                        <div class="form-check">
+                                            <input type="checkbox" name="personalities[]" value="{{$personality->id}}" @if($user->hasPersonality($personality->name)) checked @endif>
+                                            <label>{{$personality->name}}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="inputRole" class="col-md-2 col-form-label text-md-right">Profile Picture</label>
+    
+                                <div class="col-md-6">
+                                    <input id="profile_picture" type="file" class="form-control" name="profile_picture">
                                 </div>
                             </div>
 
@@ -69,13 +119,10 @@
                                 <label for="approved" class="col-md-2 col-form-label text-md-right">Approved</label>
     
                                 <div class="col-md-6">
-                                    <input id="approved" type="text" class="form-control @error('approved') is-invalid @enderror" name="approved" value="{{$user->approved}}" required autofocus>
-    
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <select class="custom-select" id="approved" name="approved">
+                                        <option value="NO" @if($user->isNotApproved()) selected @endif>NO</option>
+                                        <option value="YES" @if($user->isApproved()) selected @endif>YES</option>
+                                    </select>
                                 </div>
                             </div>
 

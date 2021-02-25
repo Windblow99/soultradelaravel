@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Withdrawal;
+use PDF;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -19,15 +21,19 @@ class WithdrawalsController extends Controller
         return view ('withdrawal.users.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    // Generate PDF
+    public function createPDF() {
+        // retreive all records from db
+        $data = Withdrawal::all();
+  
+        // share data to view
+        view()->share('withdrawals',$data);
+        $pdf = PDF::loadView('withdrawalsPDF', $data);
+  
+        // download PDF file with download method
+        return $pdf->download('pdf_withdrawals.pdf');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -59,48 +65,9 @@ class WithdrawalsController extends Controller
         return redirect()->route('user.users.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
+    public function showAllWithdrawals(Withdrawal $withdrawals)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
+        $withdrawals = DB::table('withdrawals')->get();
+        return view ('withdrawal.users.all')->with('withdrawals', $withdrawals);
     }
 }

@@ -4,29 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    // Generate PDF
+    public function createPDF() {
+        // retreive all records from db
+        $data = Order::all();
+  
+        // share data to view
+        view()->share('orders',$data);
+        $pdf = PDF::loadView('ordersPDF', $data);
+  
+        // download PDF file with download method
+        return $pdf->download('pdf_orders.pdf');
     }
 
     /**
@@ -91,6 +85,12 @@ class OrdersController extends Controller
     {
         $orders = DB::table('orders')->where('seller_id', auth()->user()->id)->get();
         return view ('order.users.sent')->with('orders', $orders);
+    }
+
+    public function showAllOrders(Order $orders)
+    {
+        $orders = DB::table('orders')->get();
+        return view ('order.users.all')->with('orders', $orders);
     }
 
     /**

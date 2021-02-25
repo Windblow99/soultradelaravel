@@ -62,11 +62,16 @@ Route::prefix('withdrawal')->name('withdrawal.')->middleware('can:medical-functi
 
 Route::get('/sentorders', [OrdersController::class, 'showSentOrders'])->name('orders.sent');
 Route::get('/receivedorders', [OrdersController::class, 'showReceivedOrders'])->name('orders.received');
+Route::get('/allorders', [OrdersController::class, 'showAllOrders'])->middleware('can:manage-users')->name('orders.all');
 
 Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.index');
 Route::post('/transaction', [CheckoutController::class, 'makePayment'])->name('make-payment');
 
 Route::get('/admin/pdf', [Admin\UsersController::class, 'createPDF']);
+Route::get('/withdrawals/pdf', [WithdrawalsController::class, 'createPDF']);
+Route::get('/orders/pdf', [OrdersController::class, 'createPDF']);
 
 Route::get('change-password', [ChangePasswordController::class, 'Index'])->name('changepwd.index');
 Route::post('change-password', [ChangePasswordController::class, 'Store'])->name('change.password');
+
+Route::get('/allwithdrawals', [WithdrawalsController::class, 'showAllWithdrawals'])->middleware('can:admin-only')->name('withdrawals.all');

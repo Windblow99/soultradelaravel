@@ -108,6 +108,7 @@ class ProfilesController extends Controller
         $user->email = $request->email;
         $user->bio = $request->bio;
         $user->availability = $request->availability;
+        $user->price = $request->price;
 
         if ($request->hasFile('profile_picture')) {
             $user->profile_picture = $fileNameToStore;

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Category;
+use App\Models\Personality;
 use PDF;
 
 use Illuminate\Support\Facades\Gate;
@@ -32,7 +34,7 @@ class UsersController extends Controller
         $pdf = PDF::loadView('adminPDF', $data);
   
         // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
+        return $pdf->download('pdf_users.pdf');
     }
 
     /**
@@ -40,10 +42,25 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, User $users)
     {
-        $users = User::all();
-        return view ('admin.users.index')->with('users', $users);
+        if ($request->term != NULL) {
+            $users = User::where([
+                ['name', '!=', Null],
+                [function ($query) use ($request) {
+                    if (($term = $request->term)) {
+                        $query->where('name', 'LIKE', '%' . $term . '%')->get();
+                    }
+                }]
+            ])
+                ->orderBy('id')
+                ->paginate(10);
+        } else {
+            $users = User::all();
+        }
+
+        return view ('admin.users.index', compact('users'))
+            ->with('i', (request()->input('page', 1) -1 ) * 5);
     }
 
     /**
@@ -59,10 +76,14 @@ class UsersController extends Controller
         }
         
         $roles = Role::all();
+        $categories = Category::all();
+        $personalities = Personality::all();
 
         return view('admin.users.edit')->with([
             'user' => $user,
-            'roles' => $roles
+            'roles' => $roles,
+            'categories' => $categories,
+            'personalities' => $personalities,
         ]);
     }
 
@@ -75,12 +96,41 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->validate($request, [
+            'profile_picture' => 'image|null|max:1999',
+        ]);
+
+        // Handle File Upload
+        if ($request->hasFile('profile_picture')) {
+            // Get filename with the extension
+            $filenameWithExt = $request->file('profile_picture')->getClientOriginalName();
+
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+
+            // Get just extension
+            $extension = $request->file('profile_picture')->getClientOriginalExtension();
+
+            // Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+
+            // Upload Image
+            $path = $request->file('profile_picture')->storeAs('public/profile_pictures', $fileNameToStore);
+        }
+
+        $user->category()->sync($request->categories);
+        $user->personality()->sync($request->personalities);
         $user->roles()->sync($request->roles);
 
         $user->name = $request->name;
         $user->email = $request->email;
         $user->bio = $request->bio;
         $user->approved = $request->approved;
+        $user->price = $request->price;
+
+        if ($request->hasFile('profile_picture')) {
+            $user->profile_picture = $fileNameToStore;
+        }
         
         if ($user->save()){
             $request->session()->flash('success', $user->name . ' has been updated');

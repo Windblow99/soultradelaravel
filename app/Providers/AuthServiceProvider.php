@@ -61,5 +61,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('not-approved', function($user){
             return $user->isNotApproved();
         });
+
+        Gate::define('admin-only', function($user){
+            return $user->hasRole('admin');
+        });
     }
 }
