@@ -67,6 +67,13 @@
                                     type='text'>
                             </div>
                         </div>
+
+                        <div class='form-row row'>
+                            <div class='col-xs-12 form-group card required'>
+                                <label class='control-label'>Amount</label> 
+                                <input class='form-control' type='number' name="amount" id="amount">
+                            </div>
+                        </div>
   
                         {{-- <div class='form-row row'>
                             <div class='col-md-12 hide error form-group'>
