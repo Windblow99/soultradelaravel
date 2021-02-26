@@ -10006,10 +10006,6 @@ h3 {
 }
 body {
   background: #fafafa !important;
-  overflow-y: hidden !important;
-  /* Hide vertical scrollbar */
-  overflow-x: hidden !important;
-  /* Hide horizontal scrollbar */
 }
 
 body, h1 {

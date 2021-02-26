@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             
-                            @can(['not-approved'])
+                            @if(Auth::user()->approved == "YES")
                             <div class="form-group row">
                                 <label for="verification_document" class="col-md-2 col-form-label text-md-right">Verification Document</label>
     
@@ -118,7 +118,7 @@
                                     <input id="verification_document" type="file" class="form-control" name="verification_document">
                                 </div>
                             </div>
-                            @endcan
+                            @endif
 
                             <div class="form-group row">
                                 <label for="availability" class="col-md-2 col-form-label text-md-right">Availability</label>

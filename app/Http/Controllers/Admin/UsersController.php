@@ -96,10 +96,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->validate($request, [
-            'profile_picture' => 'image|null|max:1999',
-        ]);
-
         // Handle File Upload
         if ($request->hasFile('profile_picture')) {
             // Get filename with the extension
