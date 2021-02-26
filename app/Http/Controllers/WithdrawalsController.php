@@ -7,6 +7,7 @@ use App\Models\Withdrawal;
 use PDF;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class WithdrawalsController extends Controller
@@ -18,7 +19,9 @@ class WithdrawalsController extends Controller
      */
     public function index()
     {
-        return view ('withdrawal.users.index');
+        $withdrawal = DB::table('withdrawals')->latest()->first();
+
+        return View ('withdrawal.users.index')->with('withdrawals', $withdrawal);
     }
 
     // Generate PDF
@@ -44,6 +47,23 @@ class WithdrawalsController extends Controller
     public function store(Request $request)
     {
         $withdrawal = new Withdrawal;
+
+        // checking for genesis block
+        if ($request->previous_hash == "0") {
+            $request->session()->flash('error', 'There was an error validating the hash');
+            return redirect()->route('withdrawal.users.index');
+        }
+
+        $previous_previous_id = ($request->previous_id - 1);
+
+        // checking for previous block
+        if (Hash::check($previous_previous_id, $request->previous_hash)) {
+            $withdrawal->previous_hash = Hash::make($request->previous_id);
+        } else {
+            $request->session()->flash('error', 'There was an error validating the hash2');
+            return redirect()->route('withdrawal.users.index');
+        }
+
         $withdrawal->user_id = auth()->user()->id;
         $withdrawal->user_name = auth()->user()->name;
         $withdrawal->bank_name = $request->bank_name;

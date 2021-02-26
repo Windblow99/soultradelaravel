@@ -37,11 +37,12 @@ class OrdersController extends Controller
         } else {
             $order = new Order;
             $order->pricing = $request->price;
-            $order->type = 'User';
+            $order->type = $request->type;
             $order->seller_id = $request->id;
             $order->seller_name = $request->name;
             $order->buyer_id = auth()->user()->id;
             $order->buyer_name = auth()->user()->name;
+            $order->purpose = $request->purpose;
             $order->save();
 
             DB::update(
@@ -77,14 +78,40 @@ class OrdersController extends Controller
      */
     public function showSentOrders(Order $orders)
     {
-        $orders = DB::table('orders')->where('buyer_id', auth()->user()->id)->get();
+        $orders = DB::table('orders')
+            ->where('buyer_id', auth()->user()->id)
+            ->where('type', 'Medical')
+            ->get();
         return view ('order.users.sent')->with('orders', $orders);
     }
 
     public function showReceivedOrders(Order $orders)
     {
-        $orders = DB::table('orders')->where('seller_id', auth()->user()->id)->get();
-        return view ('order.users.sent')->with('orders', $orders);
+        $orders = DB::table('orders')
+            ->where('seller_id', auth()->user()->id)
+            ->where('type', 'Medical')
+            ->get();
+        return view ('order.users.received')->with('orders', $orders);
+    }
+
+    public function showSentRequests(Order $orders)
+    {
+        $orders = DB::table('orders')
+            ->where('buyer_id', auth()->user()->id)
+            ->where('type', 'User')
+            ->get();
+
+        return view ('requests.users.sent')->with('orders', $orders);
+    }
+
+    public function showReceivedRequests(Order $orders)
+    {
+        $orders = DB::table('orders')
+            ->where('seller_id', auth()->user()->id)
+            ->where('type', 'User')
+            ->get();
+
+        return view ('requests.users.received')->with('orders', $orders);
     }
 
     public function showAllOrders(Order $orders)

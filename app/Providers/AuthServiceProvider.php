@@ -57,5 +57,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-only', function($user){
             return $user->hasRole('admin');
         });
+
+        Gate::define('medical-only', function($user){
+            return $user->hasRole('medical');
+        });
     }
 }

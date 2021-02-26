@@ -39,8 +39,12 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="price" class="col-md-2 col-form-label text-md-right">price</label>
-    
+                                @if($user->hasRole('Medical'))
+                                    <label for="price" class="col-md-2 col-form-label text-md-right">Price</label>
+                                @else
+                                    <label for="price" class="col-md-2 col-form-label text-md-right">Request Price</label>
+                                @endif
+
                                 <div class="col-md-6">
                                     <input id="price" type="textarea" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required readonly>
     
@@ -52,9 +56,44 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">
-                                Order
-                            </button>
+                            <div class="form-group row">
+                                <label for="price" class="col-md-2 col-form-label text-md-right">Purpose</label>
+
+                                <div class="col-md-6">
+                                    @if($user->hasRole('Medical'))
+                                        <select class="custom-select" id="purpose" name="purpose">
+                                            <option value="Request for medical issues" selected>Request for medical issues</option>
+                                        </select>
+                                    @else
+                                        <select class="custom-select" id="purpose" name="purpose">
+                                            <option value="Request to play games" selected>Request to play games</option>
+                                            <option value="Request to chat">Request to chat</option>
+                                        </select>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="type" class="col-md-2 col-form-label text-md-right">Type</label>
+
+                                <div class="col-md-6">
+                                    @if($user->hasRole('Medical'))
+                                        <input id="type" type="text" class="form-control" name="type" value="Medical" readonly>
+                                    @else
+                                        <input id="type" type="text" class="form-control" name="type" value="User" readonly>
+                                    @endif
+                                </div>
+                            </div>
+
+                            @if($user->hasRole('Medical'))
+                                <button type="submit" class="btn btn-primary">
+                                    Order
+                                </button>
+                            @else
+                                <button type="submit" class="btn btn-primary">
+                                    Request
+                                </button>
+                            @endif
                         </form>
                     </div>
                 </div>

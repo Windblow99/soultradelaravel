@@ -52,6 +52,22 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="previous_id" class="col-md-2 col-form-label text-md-right">Previous ID</label>
+    
+                                <div class="col-md-6">
+                                    <input id="previous_id" type="text" class="form-control" name="previous_id" value="{{ $withdrawals->id }}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="previous_hash" class="col-md-2 col-form-label text-md-right">Previous Hash</label>
+    
+                                <div class="col-md-6">
+                                    <input id="previous_hash" type="text" class="form-control" name="previous_hash" value="{{ $withdrawals->previous_hash }}" readonly>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">
                                 Submit
                             </button>

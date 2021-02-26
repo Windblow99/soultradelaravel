@@ -60,8 +60,15 @@ Route::prefix('withdrawal')->name('withdrawal.')->middleware('can:medical-functi
     Route::resource('/users', WithdrawalsController::class);
 });
 
+Route::prefix('requests')->name('requests.')->middleware('can:medical-function')->group(function(){
+    Route::resource('/orders', RequestsController::class);
+});
+
 Route::get('/sentorders', [OrdersController::class, 'showSentOrders'])->name('orders.sent');
 Route::get('/receivedorders', [OrdersController::class, 'showReceivedOrders'])->name('orders.received');
+Route::get('/sentrequests', [OrdersController::class, 'showSentRequests'])->name('requests.sent');
+Route::get('/receivedrequests', [OrdersController::class, 'showReceivedRequests'])->name('requests.received');
+Route::get('/modifyorder', [OrdersController::class, 'modifyOrderRequests'])->name('orders.modify');
 Route::get('/allorders', [OrdersController::class, 'showAllOrders'])->middleware('can:manage-users')->name('orders.all');
 
 Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.index');
@@ -75,3 +82,5 @@ Route::get('change-password', [ChangePasswordController::class, 'Index'])->name(
 Route::post('change-password', [ChangePasswordController::class, 'Store'])->name('change.password');
 
 Route::get('/allwithdrawals', [WithdrawalsController::class, 'showAllWithdrawals'])->middleware('can:admin-only')->name('withdrawals.all');
+
+Route::post('/updateRemarks', [RequestsController::class, 'updateRemarks'])->name('update-remarks');
