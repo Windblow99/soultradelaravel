@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hi</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+    </style>
 </head>
 <body>
-    <h1>Title</h1>
-    <p>25-02-2021</p>
-    <div class="container">
+    <h1>All system orders</h1>
+    <p> Date: 
+        <?php
+            echo date("d-m-y");
+        ?>
+    </p>
+
         <table class="table">
-            <thead class="thead-dark">
+            
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Buyer ID</th>
@@ -19,21 +39,19 @@
                     <th scope="col">Type</th>
                     <th scope="col">Created At</th>
                 </tr>
-            </thead>                           
-            <tbody>
+
             @foreach($orders as $order)
                 <tr>
-                    <th scope="row">{{$order->id}}</th>
-                    <th scope="row">{{$order->buyer_id}}</th>
-                    <th scope="row">{{$order->buyer_name}}</th>
-                    <th scope="row">{{$order->seller_id}}</th>
-                    <th scope="row">{{$order->seller_name}}</th>
+                    <td scope="row">{{$order->id}}</td>
+                    <td scope="row">{{$order->buyer_id}}</td>
+                    <td scope="row">{{$order->buyer_name}}</td>
+                    <td scope="row">{{$order->seller_id}}</td>
+                    <td scope="row">{{$order->seller_name}}</td>
                     <td>RM{{$order->pricing}}</td>
                     <td>{{$order->type}}</td>
                     <td>{{$order->created_at}}</td>
                 </tr>
             @endforeach
-            </tbody>
         </table>
     </div>
 </body>
