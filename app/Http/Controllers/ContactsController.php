@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Message;
 use App\Events\NewMessage;
@@ -11,13 +12,31 @@ class ContactsController extends Controller
 {
     public function get() 
     {
+        // get all the users except for the authenticated user
         $contacts = User::where('id', '!=', auth()->id())->get();
+
+        $unreadIds = Message::select(DB::raw('`from` as sender_id, count(`from`) as messages_count'))
+            ->where('to', auth()->id())
+            ->where('read', false)
+            ->groupBy('from')
+            ->get();
+
+        $contacts = $contacts->map(function($contact) use ($unreadIds) {
+            $contactUnread = $unreadIds->where('sender_id', $contact->id)->first();
+
+            $contact->unread = $contactUnread ? $contactUnread->messages_count : 0;
+
+            return $contact;
+        });
 
         return response()->json($contacts);
     }
 
     public function getMessagesFor($id) 
     {
+        //mark all messages with the selected contact as read
+        Message::where('from', $id)->where('to', auth()->id())->update(['read' => true]);
+
         $messages = Message::where('from', $id)->orWhere('to', $id)->get();
 
         $messages = Message::where(function($q) use ($id) {
