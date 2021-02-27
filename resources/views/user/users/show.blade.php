@@ -48,6 +48,8 @@
                         <input type="text" class="form-control-plaintext" value="{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}" readonly>
                     </div>
                 </div>
+
+                <a class="btn btn-primary" href="javascript:history.back()">Back</a>
             </div>
         </div>
     </div>

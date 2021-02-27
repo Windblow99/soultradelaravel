@@ -83,12 +83,14 @@
                         </div>
                     </div>
 
+                    <a class="btn btn-primary" href="javascript:history.back()">Back</a>
+
                     @if($user->hasRole('Medical'))
-                        <button type="submit" class="btn btn-primary mt-3">
+                        <button type="submit" class="btn btn-primary ml-3">
                             Confirm Order
                         </button>
                     @else
-                        <button type="submit" class="btn btn-primary mt-3">
+                        <button type="submit" class="btn btn-primary ml-3">
                             Confirm Request
                         </button>
                     @endif

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <center><h2>Change account password</h2></center>
+                <center><h2>Change account details</h2></center>
 
                 <form action="{{route('profile.users.update', $user) }}" method="POST" enctype="multipart/form-data">
                     <div class="form-group row mt-4">
@@ -129,7 +129,9 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
+                    <a class="btn btn-primary" href="javascript:history.back()">Back</a>
+
+                    <button type="submit" class="btn btn-primary ml-3">
                         Update
                     </button>
                 </form>

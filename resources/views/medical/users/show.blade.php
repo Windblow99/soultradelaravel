@@ -32,6 +32,8 @@
                         <input type="text" class="form-control-plaintext" value="RM {{$user->price}} per hour" readonly>
                     </div>
                 </div>
+
+                <a class="btn btn-primary" href="javascript:history.back()">Back</a>
             </div>
         </div>
     </div>

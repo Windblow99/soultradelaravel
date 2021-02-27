@@ -36,7 +36,9 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
+                    <a class="btn btn-primary" href="javascript:history.back()">Back</a>
+
+                    <button type="submit" class="btn btn-primary ml-3">
                         Submit Report
                     </button>
                 </form>
