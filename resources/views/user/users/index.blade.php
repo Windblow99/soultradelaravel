@@ -32,27 +32,23 @@
                                     @csrf
                                     {{method_field('PUT')}}
                                     <div class="form-group row">
-                                        <label for="personalities" class="col-md-2 col-form-label text-md-right">Personalities</label>
-                                        <div class="col-md-3">
+                                        <label for="personalities" class="col-md-2 col-form-label text-md-right">Filters</label>
+                                        <div class="col-md-3" id="selectFilters">
                                             @foreach($personalities as $personality)
                                                 <div class="form-check">
-                                                    <input type="checkbox" value="{{$personality->name}}" rel="personality">
+                                                    <input type="checkbox" value="{{$personality->name}}">
                                                     <label>{{$personality->name}}</label>
                                                 </div>
                                             @endforeach
-                                        </div>
-
-                                        <label for="categories" class="col-md-2 col-form-label text-md-right">Categories</label>
-                                        <div class="col-md-3" id="selectFilters">
                                             @foreach($categories as $category)
                                                 <div class="form-check">
-                                                    <input type="checkbox" value="{{$category->name}}" rel="category">
+                                                    <input type="checkbox" value="{{$category->name}}">
                                                     <label>{{$category->name}}</label>
                                                 </div>
                                             @endforeach
                                         </div>
 
-                                        <button id="filterButton">Filter</button>
+                                        <button onclick="filterSelection()">Filter</button>
                                     </div>
                                 </div>
                             </div>
@@ -84,8 +80,8 @@
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->bio}}</td>
-                                    <td class="filters">{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
-                                    <td class="filters">{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
+                                    <td class="filters"><span class="filter">{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</span></td>
+                                    <td class="filters"><span class="filter">{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</span></td>
                                     <td>{{$user->price}} per hour</td>
                                     <td><img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}"></td>
                                     <td>
@@ -106,19 +102,36 @@
 
 
 <script>
-$("input:checkbox").click(function () {
-    var showAll = true;
-    $('tr').not('.first').hide();
-    $('input[type=checkbox]').each(function () {
-        if ($(this)[0].checked) {
-            showAll = false;
-            var status = $(this).attr('rel');
-            var value = $(this).val();            
-            $('td.' + status + '[rel="' + value + '"]').parent('tr').show();
-        }
-    });
-    if(showAll){
-        $('tr').show();
+function filterSelection() {
+    // Show all rows (in case any were hidden by a previous filtering)
+    $("#usersTable > tr:hidden, #usersTable > tbody > tr:hidden").show();
+    // Get all filtered countries as array
+    var selCountries = $("#selectFilters :checkbox:checked").map(function () {
+        return $(this).val();
+    }).get();
+    if (selCountries.length < 1) {
+        return; // No countries are selected!
     }
-});
+    var selCties = $("#city-filters :checkbox:checked").map(function () {
+        return $(this).val();
+    }).get();
+    // Loop through all table rows
+    var x = $("#usersTable > tr, #usersTable > tbody > tr").filter(function (idx, ele) {
+        var countries = $(ele).find('td.filters span.filter');
+        var nFoundCountries = selCountries.filter(function (ele, idx) {
+            return countries.text().indexOf(ele) != -1;
+        }).length;
+        if (selCties.length == 0) {
+            return (nFoundCountries == 0);
+        } else {
+            var cities = $(ele).find('td.city');
+            var nFoundCities = selCties.filter(function (ele, idx) {
+                return cities.text().indexOf(ele) != -1;
+            }).length;
+
+            return !(nFoundCities == selCties.length &&
+            (nFoundCountries == countries.length && nFoundCountries == selCountries.length));
+        }
+    }).hide();
+};
 </script>
