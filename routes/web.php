@@ -35,8 +35,6 @@ Route::get('/contacts', [ContactsController::class, 'get']);
 Route::get('/conversation/{id}', [ContactsController::class, 'getMessagesFor']);
 Route::post('/conversation/send', [ContactsController::class, 'send']);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/users', Admin\UsersController::class, ['except' => ['show', 'create', 'store']]);
 });

@@ -23,13 +23,11 @@
 <body>
     <div id="app">
         @include('inc.navbar')
-        
-        <main class="py-4">
-            <div class="container">
-                @include('partials.alerts')
-                @yield('content')
-            </div>
-        </main>
+
+        <div class="container py-4">
+            @include('partials.alerts')
+            @yield('content')
+        </div>
     </div>
 </body>
 </html>

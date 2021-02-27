@@ -2,51 +2,83 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Users</div>
+        <center><h2>Account Details</h2></center>
 
-                    <div class="card-body">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Roles</th>
-                                    <th scope="col">Bio</th>
-                                    <th scope="col">Categories</th>
-                                    <th scope="col">Personalities</th>
-                                    <th scope="col">Profile Picture</th>
-                                    <th scope="col">Availability</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>                           
-                            <tbody>
-                            @foreach($users as $user)
-                                <tr>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}</td>
-                                    <td>{{$user->bio}}</td>
-                                    <td>{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
-                                    <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
-                                    <td><img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}"></td>
-                                    <td>{{$user->availability}}</td>
-                                    <td>{{$user->price}}</td>
-                                    <td>
-                                        @can('manage-profile')
-                                            <a href="{{route('profile.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>
-                                        @endcan
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+        <div class="row justify-content-center">
+            @foreach($users as $user)
+                <div class="col-3">
+                    <img src="/storage/profile_pictures/{{$user->profile_picture}}" class="thumbnail" style="width:200px;height:300px;">
+                </div>
+                <div class="col-9">
+                    <div class="form-group row mt-4">
+                        <label class="col-md-2 col-form-label">Name</label>
+    
+                        <div class="col-md-6">
+                            <input type="text" class="form-control-plaintext" value="{{$user->name}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-4">
+                        <label class="col-md-2 col-form-label">Email</label>
+    
+                        <div class="col-md-6">
+                            <input type="text" class="form-control-plaintext" value="{{$user->email}}" readonly>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row mt-4">
+                        <label class="col-md-2 col-form-label">Roles</label>
+    
+                        <div class="col-md-6">
+                            <input type="text" class="form-control-plaintext" value="{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}" readonly>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row mt-4">
+                        <label class="col-md-2 col-form-label">Bio</label>
+    
+                        <div class="col-md-6">
+                            <textarea type="text" class="form-control-plaintext" readonly>{{$user->bio}}</textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row mt-4">
+                        <label class="col-md-2 col-form-label">Categories</label>
+    
+                        <div class="col-md-6">
+                            <input type="text" class="form-control-plaintext" value="{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}" readonly>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row mt-4">
+                        <label class="col-md-2 col-form-label">Personalities</label>
+    
+                        <div class="col-md-6">
+                            <input type="text" class="form-control-plaintext" value="{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}" readonly>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row mt-4">
+                        <label class="col-md-2 col-form-label">Availability</label>
+    
+                        <div class="col-md-6">
+                            <input type="text" class="form-control-plaintext" value="{{$user->availability}}" readonly>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row mt-4">
+                        <label class="col-md-2 col-form-label">Price</label>
+    
+                        <div class="col-md-6">
+                            <input type="text" class="form-control-plaintext" value="{{$user->price}}" readonly>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                @can('manage-profile')
+                    <a href="{{route('profile.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Edit Profile</button></a>
+                @endcan
+            @endforeach 
         </div>
     </div>
 @endsection

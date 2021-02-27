@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ config('app.name', 'Laravel') }}</title>
+	<title>{{ config('app.name', 'SoulTradeCo.') }}</title>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
     <!-- Scripts -->
@@ -22,74 +22,58 @@
 </head>
 <body>
     @include('inc.navbar')  
-<div class="container">  
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="row text-center">
-                        <h3 class="panel-heading">Payment Details</h3>
-                    </div>                    
-                </div>
-                <div class="panel-body">
-  
-                    @if (Session::has('success'))
-                        <div class="alert alert-success text-center">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                            <p>{{ Session::get('success') }}</p>
-                        </div>
-                    @endif
-  
-                    <form role="form" action="{{ route('make-payment') }}" method="post" class="validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
-                        @csrf 
-                        <div class='form-row row'>
-                            <div class='col-xs-12 form-group card required'>
-                                <label class='control-label'>Card Number</label> <input
-                                    autocomplete='off' class='form-control card-num' size='20'
-                                    type='text'>
-                            </div>
-                        </div>
-  
-                        <div class='form-row row'>
-                            <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                <label class='control-label'>CVC</label> 
-                                <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'
-                                    type='text'>
-                            </div>
-                            <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                <label class='control-label'>Expiration Month</label> <input
-                                    class='form-control card-expiry-month' placeholder='MM' size='2'
-                                    type='text'>
-                            </div>
-                            <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                <label class='control-label'>Expiration Year</label> <input
-                                    class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                    type='text'>
-                            </div>
-                        </div>
+<div class="container py-4">  
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="row justify-content-center">
+                <h3>Payment Details</h3>
+            </div>                    
 
-                        <div class='form-row row'>
-                            <div class='col-xs-12 form-group card required'>
-                                <label class='control-label'>Amount</label> 
-                                <input class='form-control' type='number' name="amount" id="amount">
-                            </div>
-                        </div>
-  
-                        {{-- <div class='form-row row'>
-                            <div class='col-md-12 hide error form-group'>
-                                <div class='alert-danger alert'>Fix the errors before you begin.</div>
-                            </div>
-                        </div> --}}
-  
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <button class="btn btn-danger btn-lg btn-block" type="submit">Pay Now (RM100)</button>
-                            </div>
-                        </div>
-                          
-                    </form>
+            @if (Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{session('success')}}
                 </div>
-            </div>        
+            @endif
+
+            <form role="form" action="{{ route('make-payment') }}" method="post" class="validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
+                @csrf 
+                <div class='form-row row mt-4'>
+                    <label class='col-form-label'>Card Number</label> 
+                    <div class='col-xs-12 form-group required'>  
+                        <input class='form-control card-num' type='text' inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="16" placeholder="xxxx xxxx xxxx xxxx">
+                    </div>
+
+                    <label class='col-form-label ml-3'>Amount (RM)</label>
+                    <div class='col-xs-12 form-group required'>  
+                        <input class='form-control' type='number' name="amount" id="amount">
+                    </div>    
+                </div>
+
+                <div class='form-row row'>
+                    <div class='col-xs-12 col-md-4 form-group cvc required'>
+                        <label class='control-label'>CVC</label> 
+                        <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'
+                            type='text'>
+                    </div>
+                    <div class='col-xs-12 col-md-4 form-group expiration required'>
+                        <label class='control-label'>Expiration Month</label> <input
+                            class='form-control card-expiry-month' placeholder='MM' size='2'
+                            type='text'>
+                    </div>
+                    <div class='col-xs-12 col-md-4 form-group expiration required'>
+                        <label class='control-label'>Expiration Year</label> <input
+                            class='form-control card-expiry-year' placeholder='YYYY' size='4'
+                            type='text'>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary btn-lg" type="submit">Pay Now</button>
+                    </div>
+                </div>
+                    
+            </form>      
         </div>
     </div>
 </div>
