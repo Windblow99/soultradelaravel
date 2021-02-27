@@ -7,8 +7,54 @@
                 <div>
                     <div class="mx-auto pull-right">
                         <div class="">        
-                            <div class="input-group">
-                                <input type="text" class="form-control mr-2" name="term" placeholder="Search anything..." id="term" onkeyup="myFunction()">
+                            <div class="mx-auto pull-right">
+                                <div class="">
+                                    <form action="{{ route('user.users.index') }}" method="GET" role="search">                   
+                                        <div class="input-group">
+                                            <input type="text" class="form-control mr-2" name="term" placeholder="Search user..." id="term">
+                                            <span class="input-group-btn mr-5 mt-1">
+                                                <button class="btn btn-info" type="submit" title="Search user">
+                                                    Search
+                                                </button>
+                                            </span>
+                                            <a href="{{ route('user.users.index') }}" class=" mt-1">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-danger" type="button" title="Refresh page">
+                                                        Refresh
+                                                    </button>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="">
+                                    @csrf
+                                    {{method_field('PUT')}}
+                                    <div class="form-group row">
+                                        <label for="personalities" class="col-md-2 col-form-label text-md-right">Personalities</label>
+                                        <div class="col-md-3">
+                                            @foreach($personalities as $personality)
+                                                <div class="form-check">
+                                                    <input type="checkbox" value="{{$personality->name}}" rel="personality">
+                                                    <label>{{$personality->name}}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <label for="categories" class="col-md-2 col-form-label text-md-right">Categories</label>
+                                        <div class="col-md-3" id="selectFilters">
+                                            @foreach($categories as $category)
+                                                <div class="form-check">
+                                                    <input type="checkbox" value="{{$category->name}}" rel="category">
+                                                    <label>{{$category->name}}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <button id="filterButton">Filter</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -17,7 +63,7 @@
                     <div class="card-header">Users</div>
 
                     <div class="card-body">
-                        <table class="table" id="table">
+                        <table class="table" id="usersTable">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
@@ -38,8 +84,8 @@
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->bio}}</td>
-                                    <td>{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
-                                    <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
+                                    <td class="filters">{{implode(', ', $user->category()->get()->pluck('name')->toArray())}}</td>
+                                    <td class="filters">{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{$user->price}} per hour</td>
                                     <td><img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}"></td>
                                     <td>
@@ -60,38 +106,19 @@
 
 
 <script>
-function myFunction() {
-
-  // Declare variables 
-  var input = document.getElementById("term");
-  var filter = input.value.toUpperCase();
-  var table = document.getElementById("table");
-  var trs = table.tBodies[0].getElementsByTagName("tr");
-
-  // Loop through first tbody's rows
-  for (var i = 0; i < trs.length; i++) {
-
-    // define the row's cells
-    var tds = trs[i].getElementsByTagName("td");
-
-    // hide the row
-    trs[i].style.display = "none";
-
-    // loop through row cells
-    for (var i2 = 0; i2 < tds.length; i2++) {
-
-      // if there's a match
-      if (tds[i2].innerHTML.toUpperCase().indexOf(filter) > -1) {
-
-        // show the row
-        trs[i].style.display = "";
-
-        // skip to the next row
-        continue;
-
-      }
+$("input:checkbox").click(function () {
+    var showAll = true;
+    $('tr').not('.first').hide();
+    $('input[type=checkbox]').each(function () {
+        if ($(this)[0].checked) {
+            showAll = false;
+            var status = $(this).attr('rel');
+            var value = $(this).val();            
+            $('td.' + status + '[rel="' + value + '"]').parent('tr').show();
+        }
+    });
+    if(showAll){
+        $('tr').show();
     }
-  }
-
-}
+});
 </script>

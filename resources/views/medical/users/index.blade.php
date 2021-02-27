@@ -7,17 +7,15 @@
                 <div>
                     <div class="mx-auto pull-right">
                         <div class="">
-                            <form action="{{ route('user.users.index') }}" method="GET" role="search">
-                                <i class="fas fa-search"></i>
-            
+                            <form action="{{ route('medical.users.index') }}" method="GET" role="search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control mr-2" name="term" placeholder="Search user" id="term">
+                                    <input type="text" class="form-control mr-2" name="term" placeholder="Search medical user..." id="term">
                                     <span class="input-group-btn mr-5 mt-1">
                                         <button class="btn btn-info" type="submit" title="Search user">
                                             Search
                                         </button>
                                     </span>
-                                    <a href="{{ route('user.users.index') }}" class=" mt-1">
+                                    <a href="{{ route('medical.users.index') }}" class=" mt-1">
                                         <span class="input-group-btn">
                                             <button class="btn btn-danger" type="button" title="Refresh page">
                                                 Refresh
