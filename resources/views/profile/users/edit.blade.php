@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             
-                            @if(Auth::user()->approved == "YES")
+                            @if(Auth::user()->approved == "NO")
                             <div class="form-group row">
                                 <label for="verification_document" class="col-md-2 col-form-label text-md-right">Verification Document</label>
     
