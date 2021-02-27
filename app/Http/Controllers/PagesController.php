@@ -21,4 +21,8 @@ class PagesController extends Controller
     public function checkout() {
         return view ('checkout.index');
     }
+
+    public function chat() {
+        return view ('chat');
+    }
 }

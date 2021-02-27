@@ -27,8 +27,13 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/home', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
+Route::get('/chat', [PagesController::class, 'chat']);
 
 Auth::routes();
+
+Route::get('/contacts', [ContactsController::class, 'get']);
+Route::get('/conversation/{id}', [ContactsController::class, 'getMessagesFor']);
+Route::post('/conversation/send', [ContactsController::class, 'send']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

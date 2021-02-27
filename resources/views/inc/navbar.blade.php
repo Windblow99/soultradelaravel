@@ -11,6 +11,7 @@
     <li class="nav-item">
       <a class="nav-link" href="/about">About</a>
     </li>
+    
     @can('medical-user')
     @if(Auth::user()->approved == "YES")
       <li class="nav-item">
@@ -18,9 +19,13 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('user.users.index') }}">Companionship</a>
-      </li>   
+      </li>    
     @endif
     @endcan
+
+    <li class="nav-item">
+      <a class="nav-link" href="/chat">Chat</a>
+    </li>
   </ul>
 
   <!-- Right Side Of Navbar -->
