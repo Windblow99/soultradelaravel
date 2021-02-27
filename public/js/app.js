@@ -2143,11 +2143,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -2175,17 +2172,6 @@ Vue.component('chat-app', __webpack_require__(/*! ./components/ChatApp.vue */ ".
 
 var app = new Vue({
   el: '#app'
-});
-
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default({
-  broadcaster: 'pusher',
-  key: '90255a974530c3586451',
-  cluster: 'ap1',
-  forceTLS: true
-});
-var channel = laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default.channel('soultradelaravel');
-channel.listen('.sendMessage', function (data) {
-  alert(JSON.stringify(data));
 });
 
 /***/ }),
