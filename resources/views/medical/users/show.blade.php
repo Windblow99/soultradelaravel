@@ -2,43 +2,34 @@
 
 @section('content')
     <div class="container">
+        <center><h2>Details for Medical User</h2></center>
+
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Details for Medical {{$user->name}}</div>
+            <div class="col-3">
+                <img src="/storage/profile_pictures/{{$user->profile_picture}}" class="thumbnail" style="width:200px;height:300px;">
+            </div>
+            <div class="col-9">
+                <div class="form-group row mt-4">
+                    <label class="col-md-2 col-form-label">Name</label>
 
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label text-md-right">Name</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control-plaintext" value="{{$user->name}}" readonly>
+                    </div>
+                </div>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$user->name}}" required readonly>
-                            </div>
-                        </div>
+                <div class="form-group row mt-4">
+                    <label class="col-md-2 col-form-label">Bio</label>
 
-                        <div class="form-group row">
-                            <label for="bio" class="col-md-2 col-form-label text-md-right">bio</label>
+                    <div class="col-md-6">
+                        <textarea type="text" class="form-control-plaintext" readonly>{{$user->bio}}</textarea>
+                    </div>
+                </div>
 
-                            <div class="col-md-6">
-                                <input id="bio" type="textarea" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{$user->bio}}" required readonly>
-                            </div>
-                        </div>
+                <div class="form-group row mt-4">
+                    <label class="col-md-2 col-form-label">Price</label>
 
-                        <div class="form-group row">
-                            <label for="price" class="col-md-2 col-form-label text-md-right">price</label>
-
-                            <div class="col-md-6">
-                                <input id="price" type="textarea" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">Profile Picture</label>
-
-                            <div class="col-md-6">
-                                <img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}">
-                            </div>
-                        </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control-plaintext" value="RM {{$user->price}} per hour" readonly>
                     </div>
                 </div>
             </div>

@@ -9,8 +9,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Seller Name</th>
-                        <th scope="col">Pricing</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Requesting</th>
                         <th scope="col">Type</th>
                         <th scope="col">Created At</th>
                         <th scope="col">Purpose</th>

@@ -43,7 +43,7 @@ Route::prefix('profile')->name('profile.')->middleware('can:manage-profile')->gr
     Route::resource('/users', ProfilesController::class);
 });
 
-Route::prefix('user')->name('user.')->middleware('can:user-only')->group(function(){
+Route::prefix('user')->name('user.')->middleware('can:medical-function')->group(function(){
     Route::resource('/users', UsersController::class);
 });
 

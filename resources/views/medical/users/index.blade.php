@@ -2,68 +2,51 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="">
-                <div>
-                    <div class="mx-auto pull-right">
-                        <div class="">
-                            <form action="{{ route('medical.users.index') }}" method="GET" role="search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control mr-2" name="term" placeholder="Search medical user..." id="term">
-                                    <span class="input-group-btn mr-5 mt-1">
-                                        <button class="btn btn-info" type="submit" title="Search user">
-                                            Search
-                                        </button>
-                                    </span>
-                                    <a href="{{ route('medical.users.index') }}" class=" mt-1">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-danger" type="button" title="Refresh page">
-                                                Refresh
-                                            </button>
-                                        </span>
-                                    </a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+        <form action="{{ route('medical.users.index') }}" method="GET" role="search">
+            <div class="row">
+                <div class="col-sm-8">
+                    <input type="text" class="form-control mr-3" name="term" placeholder="Search medical user..." id="term">
                 </div>
-                <div class="card">
-                    <div class="card-header">Users</div>
-
-                    <div class="card-body">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Bio</th>
-                                    <th scope="col">Picture</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>                           
-                            <tbody>
-                            @foreach($users as $user)
-                                <tr>
-                                    <th scope="row">{{$user->id}}</th>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->bio}}</td>
-                                    <td><img style="width:100%" src="/storage/profile_pictures/{{$user->profile_picture}}"></td>
-                                    <td>{{$user->price}}</td>
-                                    <td>
-                                        <a href="{{route('medical.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
-                                        <a href="{{route('order.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Order</button></a>
-                                        <a href="{{route('report.users.edit', $user->id)}}"><button type="button" class="btn btn-danger float-left">Report</button></a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="col-sm-4">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="submit" title="Search user">
+                            Search User
+                        </button>
+                    </span>
+                    <a href="{{ route('medical.users.index') }}">
+                        <span class="input-group-btn ml-3">
+                            <button class="btn btn-danger" type="button" title="Refresh page">
+                                Refresh View
+                            </button>
+                        </span>
+                    </a>
                 </div>
             </div>
+        </form>
+
+        <div class="row justify-content-center mt-4">               
+            <table class="table table-borderless mt-3 table-hover table-responsive-xl">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Picture</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>                           
+                <tbody>
+                @foreach($users as $user)
+                    <tr>
+                        <th scope="row"><img src="/storage/profile_pictures/{{$user->profile_picture}}" class="thumbnail"></th>
+                        <td>{{$user->name}}<br>{{$user->bio}}<br>RM {{$user->price}} per hour</td>
+                        <td>
+                            <a href="{{route('medical.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
+                            <a href="{{route('order.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left ml-3">Order</button></a>
+                            <a href="{{route('report.users.edit', $user->id)}}"><button type="button" class="btn btn-danger float-left ml-3">Report</button></a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
