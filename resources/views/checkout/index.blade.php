@@ -40,7 +40,7 @@
                 <div class='form-row row mt-4'>
                     <label class='col-form-label'>Card Number</label> 
                     <div class='col-xs-12 form-group required'>  
-                        <input class='form-control card-num' type='text' inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="16" placeholder="xxxx xxxx xxxx xxxx">
+                        <input class='form-control card-num' type='text' inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="16" value="4242424242424242">
                     </div>
 
                     <label class='col-form-label ml-3'>Amount (RM)</label>
@@ -52,18 +52,15 @@
                 <div class='form-row row'>
                     <div class='col-xs-12 col-md-4 form-group cvc required'>
                         <label class='control-label'>CVC</label> 
-                        <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'
-                            type='number'>
+                        <input autocomplete='off' class='form-control card-cvc' size='4' type='number' value="123">
                     </div>
                     <div class='col-xs-12 col-md-4 form-group expiration required'>
                         <label class='control-label'>Expiration Month</label> <input
-                            class='form-control card-expiry-month' placeholder='MM' size='2'
-                            type='number'>
+                            class='form-control card-expiry-month' size='2' type='number' value="11">
                     </div>
                     <div class='col-xs-12 col-md-4 form-group expiration required'>
                         <label class='control-label'>Expiration Year</label> <input
-                            class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                            type='number'>
+                            class='form-control card-expiry-year' size='4' type='number' value="2021">
                     </div>
                 </div>
 
