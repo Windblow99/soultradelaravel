@@ -2,14 +2,13 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('user.users.index') }}" method="GET" role="search">
             <div class="row">
                 <div class="col-sm-8">
-                    <input type="text" class="form-control mr-3" name="term" placeholder="Search user..." id="term">
+                    <input type="text" class="form-control mr-3" name="term" placeholder="Search user..." id="term" onkeyup="searchUser()">
                 </div>
                 <div class="col-sm-4">
                     <span class="input-group-btn">
-                        <button class="btn btn-info" type="submit" title="Search user">
+                        <button class="btn btn-info" title="Search user" onclick="searchUser()">
                             Search User
                         </button>
                     </span>
@@ -22,10 +21,9 @@
                     </a>
                 </div>
             </div>
-        </form>
 
         <div class="row">
-            <div class="col-md-12" id="selectFilters">
+            <div class="col-md-12 mt-3" id="selectFilters">
                 @foreach($personalities as $personality)
                     <div class="form-check form-check-inline">
                         <input type="checkbox" value="{{$personality->name}}" class="form-check-input">
@@ -77,35 +75,55 @@
 @endsection
 
 <script>
-    function filterSelection() {
-        // Show all rows (in case any were hidden by a previous filtering)
-        $("#usersTable > tr:hidden, #usersTable > tbody > tr:hidden").show();
-        // Get all filtered countries as array
-        var selCountries = $("#selectFilters :checkbox:checked").map(function () {
-            return $(this).val();
-        }).get();
-        if (selCountries.length < 1) {
-            return; // No countries are selected!
+    function searchUser() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("term");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("usersTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                console.log("triggered2");
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
         }
-        var selCties = $("#city-filters :checkbox:checked").map(function () {
+    }
+
+    function filterSelection() {
+        $("#usersTable > tr:hidden, #usersTable > tbody > tr:hidden").show();
+
+        var selItem = $("#selectFilters :checkbox:checked").map(function () {
             return $(this).val();
         }).get();
-        // Loop through all table rows
+        if (selItem.length < 1) {
+            return;
+        }
+        var selItem2 = $("#city-filters :checkbox:checked").map(function () {
+            return $(this).val();
+        }).get();
+
         var x = $("#usersTable > tr, #usersTable > tbody > tr").filter(function (idx, ele) {
-            var countries = $(ele).find('td.filters span.filter');
-            var nFoundCountries = selCountries.filter(function (ele, idx) {
-                return countries.text().indexOf(ele) != -1;
+            var item = $(ele).find('td.filters span.filter');
+            var nFound = selItem.filter(function (ele, idx) {
+                return item.text().indexOf(ele) != -1;
             }).length;
-            if (selCties.length == 0) {
-                return (nFoundCountries == 0);
+            if (selItem2.length == 0) {
+                return (nFound == 0);
             } else {
-                var cities = $(ele).find('td.city');
-                var nFoundCities = selCties.filter(function (ele, idx) {
-                    return cities.text().indexOf(ele) != -1;
+                var item2 = $(ele).find('td.city');
+                var nFound2 = selItem2.filter(function (ele, idx) {
+                    return item2.text().indexOf(ele) != -1;
                 }).length;
     
-                return !(nFoundCities == selCties.length &&
-                (nFoundCountries == countries.length && nFoundCountries == selCountries.length));
+                return !(nFound2 == selItem2.length &&
+                (nFound == item.length && nFound == selItem.length));
             }
         }).hide();
     };

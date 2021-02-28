@@ -16,7 +16,7 @@ class MedicalsController extends Controller
     {
         if ($request->term != NULL) {
             $users = User::where([
-                ['name', '!=', Null],
+                ['name', '!=', auth()->user()->name],
                 [function ($query) use ($request) {
                     if (($term = $request->term)) {
                         $query->where('name', 'LIKE', '%' . $term . '%')->get();
@@ -28,6 +28,7 @@ class MedicalsController extends Controller
         } else {
             $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
             ->where('role_user.role_id', 3)
+            ->where('users.id', '!=' , auth()->user()->id)
             ->where('users.availability', '=' , 'YES')
             ->where('users.approved', '=' , 'YES')
             ->get('users.*');
