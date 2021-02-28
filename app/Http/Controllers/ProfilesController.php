@@ -100,7 +100,6 @@ class ProfilesController extends Controller
         $user->personality()->sync($request->personalities);
 
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->bio = $request->bio;
         $user->availability = $request->availability;
         $user->price = $request->price;

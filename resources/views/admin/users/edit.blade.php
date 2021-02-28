@@ -9,7 +9,7 @@
                         <label for="email" class="col-md-2 col-form-label">Email Address</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$user->email}}" required autocomplete="email" autofocus>
+                            <input id="email" type="email" class="form-control-plaintext" name="email" value="{{$user->email}}" required autocomplete="email" autofocus readonly>
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -37,7 +37,7 @@
                         <label for="price" class="col-md-2 col-form-label">Price</label>
 
                         <div class="col-md-6">
-                            <input id="price" type="textarea" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required autofocus>
+                            <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required autofocus min="5" max="50">
 
                             @error('price')
                                 <span class="invalid-feedback" role="alert">
@@ -90,14 +90,6 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputRole" class="col-md-2 col-form-label">Profile Picture</label>
-
-                        <div class="col-md-6">
-                            <input id="profile_picture" type="file" class="form-control-file" name="profile_picture">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <label for="bio" class="col-md-2 col-form-label">Bio</label>
 
                         <div class="col-md-6">
@@ -112,7 +104,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label">Original Profile</label>
+                        <label class="col-md-2 col-form-label">Profile Picture</label>
 
                         <div class="col-md-6">
                             <img src="/storage/profile_pictures/{{$user->profile_picture}}" class="thumbnail">

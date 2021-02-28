@@ -96,37 +96,14 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // Handle File Upload
-        if ($request->hasFile('profile_picture')) {
-            // Get filename with the extension
-            $filenameWithExt = $request->file('profile_picture')->getClientOriginalName();
-
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-
-            // Get just extension
-            $extension = $request->file('profile_picture')->getClientOriginalExtension();
-
-            // Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
-
-            // Upload Image
-            $path = $request->file('profile_picture')->storeAs('public/profile_pictures', $fileNameToStore);
-        }
-
         $user->category()->sync($request->categories);
         $user->personality()->sync($request->personalities);
         $user->roles()->sync($request->roles);
 
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->bio = $request->bio;
         $user->approved = $request->approved;
         $user->price = $request->price;
-
-        if ($request->hasFile('profile_picture')) {
-            $user->profile_picture = $fileNameToStore;
-        }
         
         if ($user->save()){
             $request->session()->flash('success', $user->name . ' has been updated');

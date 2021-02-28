@@ -51,6 +51,7 @@
                         <td>{{implode(', ', $user->personality()->get()->pluck('name')->toArray())}}</td>
                         <td>{{$user->approved}}</td>
                         <td>
+                            @if ($user->name != 'Admin')
                             @can('edit-users')
                                 <a href="{{route('admin.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>
                             @endcan
@@ -58,9 +59,10 @@
                                 <form action="{{route('admin.users.destroy', $user)}}" method="POST" class="float-left">
                                     @csrf
                                     {{method_field('DELETE')}}
-                                    <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                    <button type="submit" class="btn btn-danger ml-3" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             @endcan
+                            @endif
                         </td>
                     </tr>
                 @endforeach

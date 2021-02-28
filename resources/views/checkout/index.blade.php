@@ -45,7 +45,7 @@
 
                     <label class='col-form-label ml-3'>Amount (RM)</label>
                     <div class='col-xs-12 form-group required'>  
-                        <input class='form-control' type='number' name="amount" id="amount">
+                        <input class='form-control' type='number' name="amount" id="amount" min="20" max="500">
                     </div>    
                 </div>
 
@@ -53,17 +53,17 @@
                     <div class='col-xs-12 col-md-4 form-group cvc required'>
                         <label class='control-label'>CVC</label> 
                         <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'
-                            type='text'>
+                            type='number'>
                     </div>
                     <div class='col-xs-12 col-md-4 form-group expiration required'>
                         <label class='control-label'>Expiration Month</label> <input
                             class='form-control card-expiry-month' placeholder='MM' size='2'
-                            type='text'>
+                            type='number'>
                     </div>
                     <div class='col-xs-12 col-md-4 form-group expiration required'>
                         <label class='control-label'>Expiration Year</label> <input
                             class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                            type='text'>
+                            type='number'>
                     </div>
                 </div>
 
