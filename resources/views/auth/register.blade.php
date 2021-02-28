@@ -64,8 +64,7 @@
 
                     <div class="col-md-6">
                         <select class="custom-select" id="inputRole" name="inputRole">
-                            <option selected>Choose...</option>
-                            <option value="user">User</option>
+                            <option value="user"selected>User</option>
                             <option value="medical">Medical Personnel</option>
                             <option value="external">External User</option>
                         </select>
