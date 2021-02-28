@@ -3,6 +3,12 @@
 @section('content')
     <div class="container">
         <center><h2>Account Details</h2></center>
+        @if (Auth::user()->approved != 'YES')
+            <div class="alert alert-warning" role="alert">
+                Please edit your profile to submit verification file for approval!
+            </div>
+        @endif
+
         <div class="row justify-content-center ml-5 pl-5">
             <div class="col-md-8">
                 <div class="form-group row mt-4">
