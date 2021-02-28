@@ -5,29 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PDF;
 
 class ReportsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -52,17 +34,6 @@ class ReportsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\User  $user
@@ -73,5 +44,26 @@ class ReportsController extends Controller
         return view('report.users.edit')->with([
             'user' => $user,
         ]);
+    }
+
+    public function showAllReports(Report $reports)
+    {
+        $reports = DB::table('reports')
+            ->get();
+
+        return view ('report.users.all')->with('reports', $reports);
+    }
+
+    // Generate PDF
+    public function createPDF() {
+        // retreive all records from db
+        $data = Report::all();
+  
+        // share data to view
+        view()->share('reports',$data);
+        $pdf = PDF::loadView('reportsPDF', $data);
+  
+        // download PDF file with download method
+        return $pdf->download('pdf_reports.pdf');
     }
 }

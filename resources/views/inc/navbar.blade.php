@@ -125,6 +125,9 @@
           @endcan
 
           @can('admin-only')
+            <a class="dropdown-item" href="{{ route('reports.all') }}">
+              User Reports
+            </a>
             <a class="dropdown-item" href="{{ route('withdrawals.all') }}">
               Financials
             </a>

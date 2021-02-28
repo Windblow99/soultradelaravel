@@ -74,12 +74,15 @@ Route::get('/receivedrequests', [OrdersController::class, 'showReceivedRequests'
 Route::get('/modifyorder', [OrdersController::class, 'modifyOrderRequests'])->name('orders.modify');
 Route::get('/allorders', [OrdersController::class, 'showAllOrders'])->middleware('can:manage-users')->name('orders.all');
 
+Route::get('/allreports', [ReportsController::class, 'showAllReports'])->middleware('can:admin-only')->name('reports.all');
+
 Route::get('/checkout', [PagesController::class, 'checkout'])->name('checkout.index');
 Route::post('/transaction', [CheckoutController::class, 'makePayment'])->name('make-payment');
 
 Route::get('/admin/pdf', [Admin\UsersController::class, 'createPDF']);
 Route::get('/withdrawals/pdf', [WithdrawalsController::class, 'createPDF']);
 Route::get('/orders/pdf', [OrdersController::class, 'createPDF']);
+Route::get('/reports/pdf', [ReportsController::class, 'createPDF']);
 
 Route::get('change-password', [ChangePasswordController::class, 'Index'])->name('changepwd.index');
 Route::post('change-password', [ChangePasswordController::class, 'Store'])->name('change.password');
