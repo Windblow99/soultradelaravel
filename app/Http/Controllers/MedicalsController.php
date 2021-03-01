@@ -19,7 +19,11 @@ class MedicalsController extends Controller
                 ['name', '!=', auth()->user()->name],
                 [function ($query) use ($request) {
                     if (($term = $request->term)) {
-                        $query->where('name', 'LIKE', '%' . $term . '%')->get();
+                        $query->where('name', 'LIKE', '%' . $term . '%')
+                        ->where('users.id', '!=' , auth()->user()->id)
+                        ->where('users.availability', '=' , 'YES')
+                        ->where('users.approved', '=' , 'YES')
+                        ->get();
                     }
                 }]
             ])

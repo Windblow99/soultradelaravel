@@ -2,13 +2,14 @@
 
 @section('content')
     <div class="container">
+        <form action="{{ route('user.users.index') }}" method="GET" role="search">
             <div class="row">
                 <div class="col-sm-8">
-                    <input type="text" class="form-control mr-3" name="term" placeholder="Search user..." id="term" onkeyup="searchUser()">
+                    <input type="text" class="form-control mr-3" name="term" placeholder="Search user..." id="term">
                 </div>
                 <div class="col-sm-4">
                     <span class="input-group-btn">
-                        <button class="btn btn-info" title="Search user" onclick="searchUser()">
+                        <button class="btn btn-info" title="Search user" type="submit">
                             Search User
                         </button>
                     </span>
@@ -21,6 +22,7 @@
                     </a>
                 </div>
             </div>
+        </form>
 
         <div class="row">
             <div class="col-md-12 mt-3" id="selectFilters">
@@ -75,27 +77,6 @@
 @endsection
 
 <script>
-    function searchUser() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("term");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("usersTable");
-        tr = table.getElementsByTagName("tr");
-
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                console.log("triggered2");
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
     function filterSelection() {
         $("#usersTable > tr:hidden, #usersTable > tbody > tr:hidden").show();
 
