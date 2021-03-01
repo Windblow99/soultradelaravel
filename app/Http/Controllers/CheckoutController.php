@@ -13,7 +13,7 @@ class CheckoutController extends Controller
     {   
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
-                "amount" => $request->amount * 150,
+                "amount" => $request->amount * 100,
                 "currency" => "myr",
                 "source" => $request->stripeToken,
                 "description" => "Top up for soultrade." 

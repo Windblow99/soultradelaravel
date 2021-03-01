@@ -46,6 +46,11 @@ class WithdrawalsController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth()->user()->balance < $request->amount) {
+            $request->session()->flash('error', 'Insufficient balance.');
+            return redirect()->route('withdrawal.users.index');
+        }
+
         $withdrawal = new Withdrawal;
 
         // checking for genesis block
@@ -82,7 +87,7 @@ class WithdrawalsController extends Controller
             $request->session()->flash('error', 'There was an error updating the user');
         }
 
-        return redirect()->route('user.users.index');
+        return redirect()->route('withdrawal.users.index');
     }
 
     public function showAllWithdrawals(Withdrawal $withdrawals)
