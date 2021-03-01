@@ -3,9 +3,13 @@
 @section('content')
     <div class="container">
         <center><h2>Account Details</h2></center>
-        @if (Auth::user()->approved != 'YES')
+        @if (Auth::user()->approved != 'YES' && Auth::user()->verification_file == NULL)
             <div class="alert alert-warning" role="alert">
                 Please edit your profile to submit verification file for approval!
+            </div>
+        @elseif (Auth::user()->approved != 'YES' && Auth::user()->verification_file != NULL)
+            <div class="alert alert-warning" role="alert">
+                Your verification documents have been received and is pending approval.
             </div>
         @endif
 

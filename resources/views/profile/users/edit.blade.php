@@ -53,7 +53,7 @@
                         <label for="price" class="col-md-2 col-form-label">Price</label>
 
                         <div class="col-md-8">
-                            <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required autofocus min="5" max="50">
+                            <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{$user->price}}" required autofocus min="0" max="50">
 
                             @error('price')
                                 <span class="invalid-feedback" role="alert">
