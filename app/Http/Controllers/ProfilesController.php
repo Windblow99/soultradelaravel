@@ -60,6 +60,11 @@ class ProfilesController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->validate($request, [
+            'profile_picture' => 'image|nullable|max:1999',
+            'verification_document' => 'image|nullable|max:1999',
+        ]);
+        
         // Handle File Upload
         if ($request->hasFile('profile_picture')) {
             // Get filename with the extension
