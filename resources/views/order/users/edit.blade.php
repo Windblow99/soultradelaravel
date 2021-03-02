@@ -60,7 +60,10 @@
                         <div class="col-md-6">
                             @if($user->hasRole('Medical'))
                                 <select class="custom-select" id="purpose" name="purpose">
-                                    <option value="Request for medical issues" selected>Request for medical issues</option>
+                                    <option value="Request for medical issues" selected>Request for medical advice</option>
+                                    <option value="Request for medical issues" selected>Request for financial advice</option>
+                                    <option value="Request for medical issues" selected>Request for accounting advice</option>
+                                    <option value="Request for medical issues" selected>Request for professional advice</option>
                                 </select>
                             @else
                                 <select class="custom-select" id="purpose" name="purpose">
