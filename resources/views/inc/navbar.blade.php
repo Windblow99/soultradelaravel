@@ -15,7 +15,7 @@
     @can('medical-user')
     @if(Auth::user()->approved == "YES")
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('medical.users.index') }}">Medical</a>
+        <a class="nav-link" href="{{ route('medical.users.index') }}">Professionals</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('user.users.index') }}">Companionship</a>
