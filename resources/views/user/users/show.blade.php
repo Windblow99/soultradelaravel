@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <center><h2>Details for Medical User</h2></center>
+        <center><h2>Details for Professional User</h2></center>
 
         <div class="row justify-content-center">
             <div class="col-3">

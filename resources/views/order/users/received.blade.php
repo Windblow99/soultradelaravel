@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <center><h2>Received Medical Orders</h2></center>
+            <center><h2>Received Professional Services Orders</h2></center>
 
             <table class="table table-bordered mt-3 table-hover table-responsive-xl">
                 <thead class="thead-dark">

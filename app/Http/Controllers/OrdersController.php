@@ -80,7 +80,7 @@ class OrdersController extends Controller
     {
         $orders = DB::table('orders')
             ->where('buyer_id', auth()->user()->id)
-            ->where('type', 'Medical')
+            ->where('type', 'Professional')
             ->get();
         return view ('order.users.sent')->with('orders', $orders);
     }
@@ -89,7 +89,7 @@ class OrdersController extends Controller
     {
         $orders = DB::table('orders')
             ->where('seller_id', auth()->user()->id)
-            ->where('type', 'Medical')
+            ->where('type', 'Professional')
             ->get();
         return view ('order.users.received')->with('orders', $orders);
     }

@@ -60,10 +60,10 @@
                         <div class="col-md-6">
                             @if($user->hasRole('Medical'))
                                 <select class="custom-select" id="purpose" name="purpose">
-                                    <option value="Request for medical issues" selected>Request for medical advice</option>
-                                    <option value="Request for medical issues" selected>Request for financial advice</option>
-                                    <option value="Request for medical issues" selected>Request for accounting advice</option>
-                                    <option value="Request for medical issues" selected>Request for professional advice</option>
+                                    <option value="Request for medical advice" selected>Request for medical advice</option>
+                                    <option value="Request for financial advice" selected>Request for financial advice</option>
+                                    <option value="Request for accounting advice" selected>Request for accounting advice</option>
+                                    <option value="Request for professional advice" selected>Request for professional advice</option>
                                 </select>
                             @else
                                 <select class="custom-select" id="purpose" name="purpose">
@@ -79,7 +79,7 @@
 
                         <div class="col-md-6">
                             @if($user->hasRole('Medical'))
-                                <input id="type" type="text" class="form-control" name="type" value="Medical" readonly>
+                                <input id="type" type="text" class="form-control" name="type" value="Professional" readonly>
                             @else
                                 <input id="type" type="text" class="form-control" name="type" value="User" readonly>
                             @endif
