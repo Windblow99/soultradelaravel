@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container">
+        <center><h2>Reporting a user</h2></center>
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <form action="{{route('report.users.store', $user->id)}}" method="POST">
