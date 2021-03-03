@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <center><h2>Modify Order</h2></center>
+        <center><h2>Modify Order Remark</h2></center>
 
         <div class="row justify-content-center">
             <div class="col-md-8 mt-3 ml-5 pl-5">
