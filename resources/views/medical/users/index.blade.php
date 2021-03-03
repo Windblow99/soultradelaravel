@@ -5,7 +5,7 @@
         <form action="{{ route('medical.users.index') }}" method="GET" role="search">
             <div class="row">
                 <div class="col-sm-8">
-                    <input type="text" class="form-control mr-3" name="term" placeholder="Search medical user..." id="term">
+                    <input type="text" class="form-control mr-3" name="term" placeholder="Search professional user..." id="term">
                 </div>
                 <div class="col-sm-4">
                     <span class="input-group-btn">
