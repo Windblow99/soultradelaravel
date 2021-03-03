@@ -65,7 +65,9 @@
                         </td>
                         <td>
                             <a href="{{route('user.users.show', $user->id)}}"><button type="button" class="btn btn-primary float-left">Details</button></a>
-                            <a href="{{route('order.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left ml-3">Order</button></a>
+                            @if ($user->availability == "YES")
+                                <a href="{{route('order.users.edit', $user->id)}}"><button type="button" class="btn btn-primary float-left ml-3">Order</button></a>
+                            @endif
                             <a href="{{route('report.users.edit', $user->id)}}"><button type="button" class="btn btn-danger float-left ml-3">Report</button></a>
                         </td>
                     </tr>
