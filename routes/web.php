@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +26,14 @@ use Illuminate\Support\Facades\Auth;
 //     return view('pages.about');
 // });
 
+Auth::routes(['verify' => true]);
+
 Route::get('/', [PagesController::class, 'index']);
-Route::get('/home', [PagesController::class, 'index']);
+Route::get('/home', [PagesController::class, 'index'])->middleware('verified');
 Route::get('/about', [PagesController::class, 'about']);
 Route::get('/chat', [PagesController::class, 'chat']);
 
-Auth::routes();
-
-Route::get('/contacts', [ContactsController::class, 'get']);
+Route::get('/contacts', [ContactsController::class, 'get'])->middleware('verified');
 Route::get('/conversation/{id}', [ContactsController::class, 'getMessagesFor']);
 Route::post('/conversation/send', [ContactsController::class, 'send']);
 
